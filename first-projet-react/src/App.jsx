@@ -1,44 +1,20 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
-
+import { useEffect, useState } from "react"
+import axios from "axios"
 function App() {
-  const [count, setCount] = useState(0)
+  const [wheater, setwheater] = useState()
+
+  // https://openweathermap.org/current
+  useEffect(() => {
+    axios.get('https://api.openweathermap.org/data/2.5/weather?lat=48.00611&lon=0.199556&appid=0ff1f1d3219100085377002952db296f').then((response) => {
+      setwheater(response.data)
+    })
+  },[])
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React TEST 2
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
+    <>
+      <h1>{wheater.name}</h1>
+      <h1>{wheater.weather[0].main}</h1>
+    </>
   )
 }
 
