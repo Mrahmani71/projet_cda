@@ -1,0 +1,33 @@
+.searchForm {
+    display: flex;
+    column-gap: 1em;
+    margin-left: auto;
+    margin-left: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchInput {
+    height: 2.5em;
+    border: none;
+    outline: none;
+    font-size: 1.1em;
+    text-indent: 8px;
+    text-transform: capitalize;
+}
+
+.searchButton {
+    height: 2.5em;
+    border: none;
+    color: white;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.position {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    column-gap: 2em;
+}
