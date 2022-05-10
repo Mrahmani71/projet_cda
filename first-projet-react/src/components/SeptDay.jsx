@@ -22,16 +22,18 @@ export default function SeptDay() {
 	useEffect(() => {
 		getWeather(api)
 		const getDay = new Date().toLocaleDateString().split('/').reverse();
-		if (weather.list) {
+		
+		if(weather.list) {
 			for(var i = 0; i < 5; i++ ) {
 				const nowDay = `${getDay[0]}-${getDay[1]}-${Number(getDay[2]) + i}`
 				const filterDays = weather['list'].filter(item => item.dt_txt.split(' ')[0] === nowDay)
 				data.push(filterDays)
 			}
 		}
-		console.log("filter", data)
+	
 	}, [])
 
+	console.log(data)
 
 	return (
 		<>hello</>
