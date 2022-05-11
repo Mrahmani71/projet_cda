@@ -65,7 +65,7 @@ export default function App() {
           <LonLat weather={weather} />
           <Wind weather={weather}/>
           </div>
-          <h3 className="h3">les jours suivants</h3>
+          <h3 className="h3">Les Jours Suivants</h3>
           <SeptDay ville={ville}/>
         </>
       }
