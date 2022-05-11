@@ -2,50 +2,59 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import Search from "./components/Search"
 import AnimationMeteo from "./components/meteo-animation/AnimationMeteo"
-import "./assets/styles/main.css"
 import LonLat from "./components/LonLat"
 import SeptDay from "./components/SeptDay"
+
+import "./assets/styles/main.css"
+import "./style.scss"
+import Wind from "./components/Wind"
+
 export default function App() {
   const villeStorage = localStorage.getItem('ville')
   const [ville, setVille] = useState(villeStorage ? villeStorage : 'le mans')
-  const [api, setApi] = useState(`https://api.openweathermap.org/data/2.5/weather?q=${ville}&appid=0ff1f1d3219100085377002952db296f`)
   const [weather, setweather] = useState([])
 
-  const getWeather = (api) => {
-    axios
-      .get(api)
-      .then((res, err) => {
-        // console.log('data', res)
-        if (err) console.log('err', err)
-        setweather(res.data)
-      })
-  }
-
   useEffect(() => {
-    getWeather(api)
+    const fetchData = async () => {
+      const result = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${ville}&units=metric&appid=${import.meta.env.VITE_API}`)
+      try {
+        if (result.data) {
+          setweather(result.data)
+        }
+      } catch (error) {
+        throw new Error (error)
+        
+      }
+    }
+    fetchData()
   }, [ville])
 
   const search = (searchValue) => {
     setVille(searchValue)
-    setApi(`https://api.openweathermap.org/data/2.5/weather?q=${searchValue}&appid=0ff1f1d3219100085377002952db296f`)
-    getWeather(api)
     localStorage.setItem('ville', searchValue)
   }
 
-  // https://api.openweathermap.org/data/2.5/onecall?lat=48&lon=0.2&appid=0ff1f1d3219100085377002952db296f
+  console.log(weather);
   // https://openweathermap.org/current
   return (
-    <>
+    <main className="main">
       {
         weather.name &&
         <>
           <Search search={search} />
-          <h1>{weather.name}</h1>
-          <LonLat weather={weather} />
+          <h1 className="h1">{weather.name}</h1>
+          {/* <p className="p">{weather.}</p> */}
+          <h2 className="h2">{weather.main.temp}</h2>
           <AnimationMeteo weather={weather} />
-          <SeptDay/>
+
+          <div className="details">
+          <LonLat weather={weather} />
+          <Wind weather={weather}/>
+          </div>
+          <h3 className="h3">les jours suivants</h3>
+          <SeptDay ville={ville}/>
         </>
       }
-    </>
+    </main>
   )
 }

@@ -4,11 +4,9 @@ html *:before,
 html *:after { box-sizing: inherit; }
 
 body {
-  max-width: 42em;
   padding: 2em;
   margin: 0 auto;
   color: #161616;
-  font-family: 'Roboto', sans-serif;
   text-align: center;
   background-color: currentColor;
 }

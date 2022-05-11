@@ -10,7 +10,7 @@ export default function Search({search}) {
         <form className='searchForm' onSubmit={handleSubmit}>
             <input className='searchInput' placeholder='search' type="text" value={nameVille} 
             onChange={(e) => setNameVille(e.target.value)} />
-            <button className='searchButton' type='submit'>Search</button>
+            <button className='button' type='submit'>Search</button>
         </form>
   )
 }

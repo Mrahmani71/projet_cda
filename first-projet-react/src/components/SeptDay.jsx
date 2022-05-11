@@ -1,42 +1,87 @@
 
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import AnimationMeteo from './meteo-animation/AnimationMeteo'
 
 
 // 
-export default function SeptDay() {
+export default function SeptDay({ ville }) {
 	let data = []
-	const [api, setApi] = useState(`https://api.openweathermap.org/data/2.5/forecast?appid=0ff1f1d3219100085377002952db296f&q=le mans`)
 	const [weather, setweather] = useState([])
 
-	const getWeather = (api) => {
-		axios
-			.get(api)
-			.then((res, err) => {
-				//console.log('data sept', res.data)
-				if (err) console.log('err', err)
-				setweather(res.data)
-			})
-	}
-	
 	useEffect(() => {
-		getWeather(api)
-		const getDay = new Date().toLocaleDateString().split('/').reverse();
-		
-		if(weather.list) {
-			for(var i = 0; i < 5; i++ ) {
-				const nowDay = `${getDay[0]}-${getDay[1]}-${Number(getDay[2]) + i}`
-				const filterDays = weather['list'].filter(item => item.dt_txt.split(' ')[0] === nowDay)
-				data.push(filterDays)
-			}
-		}
-	
-	}, [])
+		const fetchData = async () => {
+			const getDay = new Date().toLocaleDateString().split('/').reverse();
+			const result = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?appid=${import.meta.env.VITE_API}&q=${ville}&units=metric`)
+			try {
+				if (result.data) {
 
-	console.log(data)
+					for (var i = 0; i < 5; i++) {
+						const nowDay = `${getDay[0]}-${getDay[1]}-${Number(getDay[2]) + i}`
+						const filterDays = result.data['list'].filter(item => item.dt_txt.split(' ')[0] === nowDay)
+						data.push(filterDays)
+					}
+					setweather(data)
+				}
+			} catch (error) {
+				console.log(error)
+			}
+
+		}
+		fetchData()
+	}, [ville])
+
+	function getMin(day) {
+		let data = []
+		day.forEach(i =>
+			data.push(i.main.temp_min)
+		)
+		return Math.min(...data)
+	}
+
+	function getMax(day) {
+		let data = []
+		day.forEach(i =>
+			data.push(i.main.temp_min)
+		)
+		return Math.max(...data)
+	}
 
 	return (
-		<>hello</>
-		// <pre>{weather}</pre>
+		<div className='septDay'>
+			{weather &&
+				weather.map((day, index) =>
+					<div className='oneDay' key={index}>
+						{index === 0 && <h2>Aujourd’hui</h2>}
+						{index === 1 && <h2>Demain</h2>}
+						{index > 1 && <h2>
+							{day[0].dt_txt.split(' ')[0].split('-')[2]}
+							/
+							{day[0].dt_txt.split(' ')[0].split('-')[1]}</h2>}
+						<div className='minMax'>
+							<span className='h5'><strong>Min: </strong>{getMin(day)}</span>
+							<span className='h5'><strong>Max: </strong> {getMax(day)}</span>
+							
+
+						</div>
+						<div className='todayMeteo'>
+							{
+								day.map((item, index) =>
+									<div key={index}>
+										<h3 className='h4'>{item.dt_txt.split(' ')[1].slice(0, -3)}</h3>
+										<div className='tempHurs'>
+											<p className='p'>{item.main.temp}</p>
+											<AnimationMeteo weather={item} />
+										</div>
+
+									</div>
+								)
+							}
+						</div>
+					</div>
+				)
+
+			}
+		</div>
 	)
 }
