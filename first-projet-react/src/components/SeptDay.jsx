@@ -15,9 +15,11 @@ export default function SeptDay({ ville }) {
 			const result = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?appid=${import.meta.env.VITE_API}&q=${ville}&units=metric`)
 			try {
 				if (result.data) {
-
 					for (var i = 0; i < 5; i++) {
+						// Get Today 05/05/2022
 						const nowDay = `${getDay[0]}-${getDay[1]}-${Number(getDay[2]) + i}`
+
+						// filter API DATA BY NOW DAY
 						const filterDays = result.data['list'].filter(item => item.dt_txt.split(' ')[0] === nowDay)
 						data.push(filterDays)
 					}
