@@ -45,6 +45,7 @@ html {
 
 
 // ReUse
+.container { padding-inline: 15px; }
 .button {
     background-color: $primary;
     text-transform: uppercase;
@@ -113,10 +114,15 @@ strong {
 }
 
 .searchForm {
-    display: flex;
-    column-gap: 1em;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    min-width: 80vw;
+    align-items: stretch;
+
+    input {
+        font-size: $f-s-md
+    };
 }
 
 
@@ -159,15 +165,37 @@ strong {
     column-gap: 2em;
 }
 
-@media (min-width: 600px) {}
+.Toastify {
+    font-size: $f-s-md;
+}
+
+@media (min-width: 600px) {
+    .container {
+        max-width: 550px;
+        margin-inline: auto;
+      }
+}
 @media (min-width: 768px) {
+
+    .container { max-width: 720px; }
+
     .septDay {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .searchForm {
+        min-width: 60vw;
+    }
 }
 @media (min-width: 992px) {
+    .container { max-width: 970px; }
     .septDay {
         grid-template-columns: repeat(3,1fr);
     }
+    .searchForm {
+        min-width: 600px;
+    }
 }
-@media (min-width: 1200px) {}
+@media (min-width: 1200px) {
+    .container { max-width: 1200px; }
+}

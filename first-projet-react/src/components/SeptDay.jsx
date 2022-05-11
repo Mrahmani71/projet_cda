@@ -2,7 +2,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import AnimationMeteo from './meteo-animation/AnimationMeteo'
-
+import cb from 'classnames'
 
 // 
 export default function SeptDay({ ville }) {
@@ -48,7 +48,7 @@ export default function SeptDay({ ville }) {
 	}
 
 	return (
-		<div className='septDay'>
+		<div className={cb('septDay', "container")}>
 			{weather &&
 				weather.map((day, index) =>
 					<div className='oneDay' key={index}>

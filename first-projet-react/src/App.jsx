@@ -4,12 +4,22 @@ import Search from "./components/Search"
 import AnimationMeteo from "./components/meteo-animation/AnimationMeteo"
 import LonLat from "./components/LonLat"
 import SeptDay from "./components/SeptDay"
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./assets/styles/main.css"
 import "./style.scss"
 import Wind from "./components/Wind"
 
 export default function App() {
+  const notify = () => toast.warn("Ceci est une demande en double", {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    });
   const villeStorage = localStorage.getItem('ville')
   const [ville, setVille] = useState(villeStorage ? villeStorage : 'le mans')
   const [weather, setweather] = useState([])
@@ -28,13 +38,17 @@ export default function App() {
     }
     fetchData()
   }, [ville])
-
+  
   const search = (searchValue) => {
-    setVille(searchValue)
-    localStorage.setItem('ville', searchValue)
+    if (searchValue.toLowerCase() !== villeStorage.toLowerCase()){
+      setVille(searchValue)
+      localStorage.setItem('ville', searchValue)
+    } else {
+      notify()
+    }
+
   }
 
-  console.log(weather);
   // https://openweathermap.org/current
   return (
     <main className="main">
@@ -55,6 +69,7 @@ export default function App() {
           <SeptDay ville={ville}/>
         </>
       }
+      <ToastContainer />
     </main>
   )
 }
