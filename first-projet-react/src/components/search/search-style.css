@@ -1,0 +1,27 @@
+@import "/src/assets/styles/base.css";
+
+
+.search__form {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 80vw;
+    align-items: stretch;
+}
+
+.search__input {
+    flex-grow: 1;
+    border: 1px solid var(--color-primary);
+    outline: none;
+    font-size: 1.1em;
+    text-indent: 8px;
+    text-transform: capitalize;
+    font-size: var(--f-s-md);
+    
+    color: var(--color-primary-alt);
+}
+
+.dark-theme .search__input{
+    border: 1px solid var(--color-body);
+    border-right: 0;
+}

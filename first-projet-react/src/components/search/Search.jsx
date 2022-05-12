@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import cb from "classnames"
 
+import "./search-style.css"
 export default function Search({search}) {
     const [nameVille, setNameVille] = useState("");
     function handleSubmit(e) {
@@ -7,10 +9,10 @@ export default function Search({search}) {
         search(nameVille)
     }
     return (
-        <form className='searchForm' onSubmit={handleSubmit}>
-            <input className='searchInput' placeholder='search' type="text" value={nameVille} 
+        <form className='search__form' onSubmit={handleSubmit}>
+            <input className='search__input' placeholder='search' type="text" value={nameVille} 
             onChange={(e) => setNameVille(e.target.value)} />
-            <button className='button' type='submit'>Search</button>
+            <button className={cb('search__button', "button")} type='submit'>Search</button>
         </form>
   )
 }

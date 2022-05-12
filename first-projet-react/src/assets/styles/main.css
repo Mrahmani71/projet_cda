@@ -1,100 +1,23 @@
+@import "./base.css";
 
-h2,
-h3 {
-    margin: 0 0 .5em 0;
-}
-
-body {
-    overflow-x: hidden;
-}
-
-.location-titre {
-    color: #c2c2c2;
-    font-size: 1rem;
-    margin-bottom: -.5em;
-}
-
-
-
-.searchInput {
-    flex-grow: 1;
-    border: none;
-    outline: none;
-    font-size: 1.1em;
-    text-indent: 8px;
-    text-transform: capitalize;
-}
-
-.searchButton {
-    border: none;
-    color: white;
-    background-color: transparent;
-    cursor: pointer;
-}
-
-.position {
-    display: flex;
-    margin-left: auto;
-    margin-right: auto;
-    justify-content: center;
-    column-gap: 1em;
-}
-
-.septDay {
-    display: flex;
-    flex-direction: column;
-}
-
-.oneDay > h2 {
-    color: #F5F5F5;
-}
-
-.todayMeteo::-webkit-scrollbar-track
-{
-    -webkit-box-shadow: inset 0 0 6px rgba(100, 100, 100, 0.3);
-	background-color: #F5F5F5;
-    border-radius: 10px;
-}
-
-.todayMeteo::-webkit-scrollbar
-{
-    height: 16px;
-	background-color: #727272;
-    cursor: pointer;
-    border-radius: 10px;
-}
-
-.todayMeteo::-webkit-scrollbar-thumb
-{
-    background-color: #6da4b8;
-    border-radius: 20px;
-    border: 4px solid transparent;
-    background-clip: content-box;
-}
-
-.todayMeteo > div > h3 {
-    color: #F5F5F5;
-}
-
-.tempHurs {
-    width: 100%;
+.main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
-    overflow: hidden;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.tempHurs > h4 {
-    color: #c2c2c2;
-}
-
-.tempHurs > div > .rain {
-    background: none;
-}
-
-.minMax {
+.details {
     display: inline-flex;
-    column-gap: 1em;
-    color: #c2c2c2;
+    align-items: center;
+    column-gap: var(--s-2-5);
+    margin-bottom: var(--s-2);
+}
+
+.details > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

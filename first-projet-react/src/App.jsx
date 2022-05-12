@@ -1,25 +1,22 @@
+// Modules
 import { useEffect, useState } from "react"
 import axios from "axios"
-import Search from "./components/Search"
+import { ToastContainer } from 'react-toastify';
+
+// Components
+import Search from "./components/search/Search"
 import AnimationMeteo from "./components/meteo-animation/AnimationMeteo"
-import LonLat from "./components/LonLat"
-import SeptDay from "./components/SeptDay"
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import LonLat from "./components/lon-lat/LonLat"
+import SeptDay from "./components/days/Days"
+import Wind from "./components/wind/Wind"
+import ToggleTheme from "./components/toggle-theme/ToggleTheme"
+import ErrorNotif from "./components/notifications/ErrorNotif"
+
+// Styles
 import "./assets/styles/main.css"
-import "./style.scss"
-import Wind from "./components/Wind"
 
 export default function App() {
-  const notify = () => toast.warn("Ceci est une demande en double", {
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    });
+
   const villeStorage = localStorage.getItem('ville')
   const [ville, setVille] = useState(villeStorage ? villeStorage : 'le mans')
   const [weather, setweather] = useState([])
@@ -44,7 +41,7 @@ export default function App() {
       setVille(searchValue)
       localStorage.setItem('ville', searchValue)
     } else {
-      notify()
+      {ErrorNotif}
     }
 
   }
@@ -55,9 +52,9 @@ export default function App() {
       {
         weather.name &&
         <>
+          <ToggleTheme/>
           <Search search={search} />
           <h1 className="h1">{weather.name}</h1>
-          {/* <p className="p">{weather.}</p> */}
           <h2 className="h2">{weather.main.temp}</h2>
           <AnimationMeteo weather={weather} />
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import "./lon-lat.css"
 
 export default function LonLat({weather}) {
   return (
