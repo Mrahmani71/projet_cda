@@ -6,13 +6,14 @@ import cb from 'classnames'
 import "./days-style.css"
 // 
 export default function SeptDay({ ville }) {
-	let data = []
 	const [weather, setweather] = useState([])
-
+	
+	let data = []
 	useEffect(() => {
 		const fetchData = async () => {
 			const getDay = new Date().toLocaleDateString().split('/').reverse();
 			const result = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?appid=${import.meta.env.VITE_API}&q=${ville}&units=metric`)
+			//console.log("days ",result);
 			try {
 				if (result.data) {
 					for (var i = 0; i < 5; i++) {

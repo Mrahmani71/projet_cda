@@ -1,4 +1,3 @@
-@import "/src/assets/styles/base.css";
 
 .icon {
   position: relative;
@@ -6,7 +5,6 @@
   width: 12em;
   height: 10em;
   font-size: 1em; /* control icon size here */
-  
 }
 
 .cloud {
@@ -17,14 +15,14 @@
   width: 3.6875em;
   height: 3.6875em;
   margin: -1.84375em;
-  background: var(--color-primary);
+  background: currentColor;
   border-radius: 50%;
   box-shadow:
-    -2.1875em 0.6875em 0 -0.6875em var(--color-primary),
-    2.0625em 0.9375em 0 -0.9375em var(--color-primary),
-    0 0 0 0.375em var(--color-primary-lightest),
-    -2.1875em 0.6875em 0 -0.3125em var(--color-primary-lightest),
-    2.0625em 0.9375em 0 -0.5625em var(--color-primary-lightest);
+    -2.1875em 0.6875em 0 -0.6875em,
+    2.0625em 0.9375em 0 -0.9375em,
+    0 0 0 0.375em #fff,
+    -2.1875em 0.6875em 0 -0.3125em #fff,
+    2.0625em 0.9375em 0 -0.5625em #fff;
 }
 .cloud:after {
   content: '';
@@ -34,23 +32,23 @@
   display: block;
   width: 4.5625em;
   height: 1em;
-  background: var(--color-primary);
-  box-shadow: 0 0.4375em 0 -0.0625em var(--color-primary-lightest);
+  background: currentColor;
+  box-shadow: 0 0.4375em 0 -0.0625em #fff;
 }
 .cloud:nth-child(2) {
   z-index: 0;
-  background: var(--color-primary-light);
+  background: #fff;
   box-shadow:
-    -2.1875em 0.6875em 0 -0.6875em var(--color-primary-light),
-    2.0625em 0.9375em 0 -0.9375em var(--color-primary-light),
-    0 0 0 0.375em var(--color-primary-light),
-    -2.1875em 0.6875em 0 -0.3125em var(--color-primary-light),
-    2.0625em 0.9375em 0 -0.5625em var(--color-primary-light);
+    -2.1875em 0.6875em 0 -0.6875em #fff,
+    2.0625em 0.9375em 0 -0.9375em #fff,
+    0 0 0 0.375em #fff,
+    -2.1875em 0.6875em 0 -0.3125em #fff,
+    2.0625em 0.9375em 0 -0.5625em #fff;
   opacity: 0.3;
   transform: scale(0.5) translate(6em, -3em);
   animation: cloud 4s linear infinite;
 }
-.cloud:nth-child(2):after { background: var(--color-primary-light); }
+.cloud:nth-child(2):after { background: #fff; }
 
 .sun {
   position: absolute;
@@ -59,9 +57,9 @@
   width: 2.5em;
   height: 2.5em;
   margin: -1.25em;
-  background: hsl(54, 70%, 50%);
+  background: currentColor;
   border-radius: 50%;
-  box-shadow: 0 0 0 0.375em hsl(54, 60%, 50%);
+  box-shadow: 0 0 0 0.375em #fff;
   animation: spin 12s infinite linear;
 }
 .rays {
@@ -72,9 +70,9 @@
   width: 0.375em;
   height: 1.125em;
   margin-left: -0.1875em;
-  background: hsl(54, 70%, 50%);
+  background: #fff;
   border-radius: 0.25em;
-  box-shadow: 0 5.375em hsl(54, 70%, 50%);
+  box-shadow: 0 5.375em #fff;
 }
 .rays:before,
 .rays:after {
@@ -87,9 +85,9 @@
   height: 1.125em;
   transform: rotate(60deg);
   transform-origin: 50% 3.25em;
-  background: hsl(54, 70%, 50%);
+  background: #fff;
   border-radius: 0.25em;
-  box-shadow: 0 5.375em hsl(54, 70%, 50%);
+  box-shadow: 0 5.375em #fff;
 }
 .rays:before {
   transform: rotate(120deg);
@@ -108,7 +106,7 @@
   width: 3.75em;
   height: 3.75em;
   margin: 0.375em 0 0 -2em;
-  background: var(--color-primary);
+  background: currentColor;
 }
 
 .rain:after {
