@@ -49,7 +49,6 @@ export default function SeptDay({ ville }) {
 		)
 		return Math.max(...data)
 	}
-
 	return (
 		<div className={cb('days', "container")}>
 			{weather &&

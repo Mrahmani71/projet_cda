@@ -14,6 +14,9 @@ import ErrorNotif from "./components/notifications/ErrorNotif"
 
 // Styles
 import "./assets/styles/main.css"
+import Atom__Cloud from "./components/meteo-animation/Atom/Atom__Cloud";
+import Atom__CloudMove from "./components/meteo-animation/Atom/Atom__CloudMove";
+import Cloudy from "./components/meteo-animation/template/Cloudy";
 
 export default function App() {
 
@@ -63,7 +66,7 @@ export default function App() {
           <Wind weather={weather}/>
           </div>
           <h3 className="h3">Les Jours Suivants</h3>
-          <SeptDay ville={ville}/>
+          <SeptDay ville={ville}/> 
         </>
       }
       <ToastContainer />

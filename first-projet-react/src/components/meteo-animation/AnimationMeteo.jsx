@@ -1,10 +1,10 @@
 import React from 'react'
-import Cloudy from "./Cloudy"
-import Sunny from "./Sunny"
-import Rainy from "./Rainy"
-import ThunderStorm from './ThunderStorm'
-import Flurries from './Flurries'
-import FewCloudy from './FewCloudy'
+import Cloudy from "./template/Cloudy"
+import Sunny from "./template/Sunny"
+import Rainy from "./template/Rainy"
+import ThunderStorm from './template/ThunderStorm'
+import Flurries from './template/Flurries'
+import FewCloudy from './template/FewCloudy'
 
 export default function AnimationMeteo({weather}) {
   console.log(weather)

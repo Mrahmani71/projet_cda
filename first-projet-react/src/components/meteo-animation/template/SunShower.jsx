@@ -1,4 +1,4 @@
-import "./style.css"
+
 
 export default function SunShower() {
 	return (

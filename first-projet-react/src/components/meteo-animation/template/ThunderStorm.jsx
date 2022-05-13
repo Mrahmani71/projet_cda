@@ -1,5 +1,3 @@
-import "./style.css"
-
 export default function ThunderStorm() {
 	return (
 		<div className="icon thunder-storm">
