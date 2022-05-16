@@ -7,7 +7,7 @@ import Flurries from './template/Flurries'
 import FewCloudy from './template/FewCloudy'
 
 export default function AnimationMeteo({weather}) {
-  console.log(weather)
+  
   let date = new Date(weather.dt * 1000).toLocaleString().split(' ')[1].split(':')[0]
   if(date[0] == 0) {
     date = date[1]

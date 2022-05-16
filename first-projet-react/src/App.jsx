@@ -1,7 +1,7 @@
 // Modules
 import { useEffect, useState } from "react"
-import axios from "axios"
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Components
 import Search from "./components/search/Search"
@@ -12,64 +12,88 @@ import Wind from "./components/wind/Wind"
 import ToggleTheme from "./components/toggle-theme/ToggleTheme"
 import ErrorNotif from "./components/notifications/ErrorNotif"
 
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { getWeatherLocation, getWeatherToday } from "./featurs/today/todaySlice";
+
+
 // Styles
 import "./assets/styles/main.css"
-import Atom__Cloud from "./components/meteo-animation/Atom/Atom__Cloud";
-import Atom__CloudMove from "./components/meteo-animation/Atom/Atom__CloudMove";
-import Cloudy from "./components/meteo-animation/template/Cloudy";
+
 
 export default function App() {
-
   const villeStorage = localStorage.getItem('ville')
-  const [ville, setVille] = useState(villeStorage ? villeStorage : 'le mans')
-  const [weather, setweather] = useState([])
+  const dispatch = useDispatch()
+  const { today, isLoading, isError, message } = useSelector(
+    (state) => state.today
+  )
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${ville}&units=metric&appid=${import.meta.env.VITE_API}`)
-      try {
-        if (result.data) {
-          setweather(result.data)
-        }
-      } catch (error) {
-        throw new Error (error)
-        
-      }
+    if (isError) {
+      console.log(message)
     }
-    fetchData()
-  }, [ville])
-  
-  const search = (searchValue) => {
-    if (searchValue.toLowerCase() !== villeStorage.toLowerCase()){
-      setVille(searchValue)
-      localStorage.setItem('ville', searchValue)
-    } else {
-      {ErrorNotif}
+    
+    if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((result) => {
+        if(result) {
+          const letLon = {
+            lat : result.coords.latitude,
+            lon: result.coords.longitude,
+          }
+          localStorage.setItem('location', JSON.stringify(letLon))
+          return dispatch(getWeatherLocation(letLon))
+        } 
+      })
+    } else if (villeStorage) {
+      localStorage.removeItem('location')
+      dispatch(getWeatherToday(villeStorage))
+    } else if (!villeStorage) {
+      localStorage.removeItem('location')
+      dispatch(getWeatherToday("Le Mans"))
+      localStorage.setItem('ville', "Le Mans")
     }
 
+  }, [dispatch, isError, message])
+
+  const search = async (searchValue) => {
+    if (!searchValue) {
+      return ErrorNotif("input is empty")
+    }
+
+    if (!villeStorage || searchValue.toLowerCase() !== today.name.toLowerCase()) {
+      localStorage.removeItem('location')
+      localStorage.setItem('ville', searchValue)
+      dispatch(getWeatherToday(searchValue))
+    } else {
+      return ErrorNotif("invalid Error")
+    }
   }
 
+  if (isLoading) {
+    return <div>LOADING....</div>
+  }
   // https://openweathermap.org/current
   return (
     <main className="main">
+      <ToastContainer />
       {
-        weather.name &&
+        today.name &&
         <>
-          <ToggleTheme/>
+          <ToggleTheme />
           <Search search={search} />
-          <h1 className="h1">{weather.name}</h1>
-          <h2 className="h2">{weather.main.temp}</h2>
-          <AnimationMeteo weather={weather} />
+          <h1 className="h1">{today.name}</h1>
+          <h2 className="h2">{today.main.temp}</h2>
+          <AnimationMeteo weather={today} />
 
           <div className="details">
-          <LonLat weather={weather} />
-          <Wind weather={weather}/>
+            <LonLat weather={today} />
+            <Wind weather={today} />
           </div>
           <h3 className="h3">Les Jours Suivants</h3>
-          <SeptDay ville={ville}/> 
+          <SeptDay ville={villeStorage} />
         </>
       }
-      <ToastContainer />
+
     </main>
   )
-}
+} 
