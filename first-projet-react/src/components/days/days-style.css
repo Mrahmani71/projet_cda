@@ -1,110 +1,130 @@
 @import "/src/assets/styles/base.css";
 
-.days {
-    display: grid;
-    gap: var(--s-1);
-    grid-template-columns: repeat(1, calc((100% - 00px * 2) / 1));
-    margin-inline: auto;
-    align-items: center;
-    justify-content: center;
-    max-width: 100%;
+.swiper * {
+    box-sizing: border-box;
+}
+.swiper {
+  margin-top: 2em;
+  width: 100%;
+  height: 100%;
 }
 
 
-
-.one-day {
+.swiper-wrapper {
+    margin-bottom: 8em;
+    display: inline-flex;
+    align-items: stretch;
+    justify-content: stretch;
     height: 100%;
-    column-span: 1fr;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    column-gap: 2em;
-    background-color: rgba(153, 153, 153, 0);
-    padding: 1rem;
-    border: 1px solid var(--color-primary-lightest);
-    width: 100%;
 }
 
-.one-day > h2 {
-    color: var(--color-primary);
+.swiper-slide {
+min-height: 290px;
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  display: flex;
+  row-gap: 2em;
+  background-color: rgba(153, 153, 153, 0);
+  padding: 1rem;
+  border: 1px solid var(--color-primary-lightest);
 }
 
+.swiper-slide > h2 {
+  color: var(--color-primary);
+}
 
 .day-meteo {
-    display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-    scroll-snap-align: center;
-    scroll-snap-type: x mandatory;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  scroll-snap-align: center;
+  scroll-snap-type: x mandatory;
+  width: 100%;
 }
 
 .min-max {
-    display: inline-flex;
-    column-gap: 1em;
-    color: #c2c2c2;
+  display: inline-flex;
+  column-gap: 1em;
+  color: #c2c2c2;
 }
 
 .hour-meteo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .hours {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    overflow: hidden;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  overflow: hidden;
 }
 
 .hours > h4 {
-    color: #c2c2c2;
+  color: #c2c2c2;
 }
 
 .hours > div > .rain {
-    background: none;
+  background: none;
 }
 
-::-webkit-scrollbar-track
-{
-    -webkit-box-shadow: inset 0 0 6px rgba(100, 100, 100, 0.1);
-	background-color: var(--color-primary-lightest);
-    border-radius: 10px;
+.day-meteo::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(100, 100, 100, 0.1);
+  box-shadow: inset 0 0 6px rgba(100, 100, 100, 0.1);
+  background-color: var(--color-primary-lightest);
+  border-radius: 10px;
 }
 
-.day-meteo::-webkit-scrollbar
-{
-    height: 16px;
-	background-color: #727272;
-    cursor: pointer;
-    border-radius: 10px;
+.day-meteo::-webkit-scrollbar {
+  height: 16px;
+  background-color: #727272;
+  cursor: pointer;
+  border-radius: 10px;
 }
 
-.day-meteo::-webkit-scrollbar-thumb
-{
-    background-color: var(--color-primary);
-    border-radius: 20px;
-    border: 4px solid transparent;
-    background-clip: content-box;
+.day-meteo::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary);
+  border-radius: 20px;
+  border: 4px solid transparent;
+  background-clip: content-box;
+}
+
+.swiper-button-prev, .swiper-button-next {
+    top: 90%;
+    left: 0;
+    right: 0;
+    width: max-content;
+}
+
+.swiper-button-prev {
+    left: calc(50% - 40px);
+}
+
+.swiper-button-next {
+    left: calc(50% + 20px);
 }
 
 @media (min-width: 600px) {
-    .days {
-        grid-template-columns: repeat(2, calc((100% - 20px * 2) / 2));
-    }
 }
 @media (min-width: 768px) {
-    .container { max-width: 720px; }
 }
 @media (min-width: 992px) {
-    .days {
-        grid-template-columns: repeat(3, calc((100% - 20px * 2) / 3));
-    }
 }
 @media (min-width: 1200px) {
-    .container { max-width: 1200px; }
 }

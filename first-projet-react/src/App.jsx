@@ -1,10 +1,10 @@
-// Modules
+// // Modules
 import { useEffect, useState } from "react"
-import { ToastContainer } from 'react-toastify';
 import cb from "classnames"
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// // Components
+// Components
 import Search from "./components/search/Search"
 import AnimationMeteo from "./components/meteo-animation/AnimationMeteo"
 import LonLat from "./components/lon-lat/LonLat"
@@ -13,18 +13,13 @@ import Wind from "./components/wind/Wind"
 import ToggleTheme from "./components/toggle-theme/ToggleTheme"
 import ErrorNotif from "./components/notifications/ErrorNotif"
 
-// // redux
+// redux
 import { useDispatch, useSelector } from "react-redux";
 import { getWeatherLocation, getWeatherToday } from "./featurs/today/todaySlice";
 
 
-// // Styles
+// Styles
 import "./assets/styles/main.css"
-import LoadingMeteo from "./components/loading/LoadingMeteo";
-import { reset } from "./featurs/fiveDay/fiveDaySlice";
-
-
-
 
 export default function App() {
 
@@ -37,6 +32,7 @@ export default function App() {
   )
 
   useEffect(() => {
+
     if (isError) {
       console.log(message)
     }
@@ -80,15 +76,12 @@ export default function App() {
         }
       })
     }
-
-
-  }, [dispatch, isError, message])
+}, [dispatch, isError, message])
 
   const search = async (searchValue) => {
     if (!searchValue) {
       return ErrorNotif("input is empty")
     }
-
     if (!ville || searchValue.toLowerCase() !== today.name.toLowerCase()) {
       localStorage.removeItem('location')
       localStorage.setItem('cherchePar', "ville")
@@ -101,30 +94,32 @@ export default function App() {
 
   if (isLoading) {
     return <div>HELLO</div>
-    //return <LoadingMeteo/>
   }
-  //   // https://openweathermap.org/current
+
+  let date = new Date(today.dt * 1000);
+    // https://openweathermap.org/current
   return (
     <main className={cb("main", "container")}>
-      <ToastContainer />
+       <ToastContainer />
       {
         today.name &&
         <>
-          <ToggleTheme />
-          <Search search={search} />
-          <h1 className="h1">{today.name}</h1>
-          <h2 className="h2">{today.main.temp}</h2>
-          <AnimationMeteo weather={today} />
+        <ToggleTheme />
+           <Search search={search} />
+           <h1 className="h1">{today.name}</h1>
+           <h2 className="h2">{today.main.temp}</h2>
+           <p>{date.toLocaleString()}</p>
+           <AnimationMeteo weather={today} />
 
-          <div className="details">
-            <LonLat weather={today} />
-            <Wind weather={today} />
-          </div>
-          <h3 className="h3">Les Jours Suivants</h3>
-          <SeptDay ville={ville} />
+           <div className="details">
+             <LonLat weather={today} />
+             <Wind weather={today} />
+           </div>
+           <h3 className="h3">Les Jours Suivants</h3>
+           <SeptDay ville={ville} />
         </>
-      }
+       }
 
-    </main>
+   </main>
   )
 } 
