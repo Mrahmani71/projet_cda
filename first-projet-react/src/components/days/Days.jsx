@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { getFiveDays, getFiveLocation } from '../../featurs/fiveDay/fiveDaySlice'
+import LoadingMeteo from '../loading/LoadingMeteo'
 
 import AnimationMeteo from '../meteo-animation/AnimationMeteo'
 import "./days-style.css"
@@ -18,28 +19,28 @@ export default function SeptDay({ville}) {
 		if (isError) {
 			console.log(message);
 		}
-		const location = localStorage.getItem('location')
-		if (location) {
-			dispatch(getFiveLocation(location))
-		}
-		if (!location) {
-			console.log("hlelelelelpe");
-			dispatch(getFiveDays(ville))
-		}
-		if (isSucces) {
-			let data = []
-			for (var i = 0; i < 5; i++) {
-				// Get Today 05/05/2022
-				const nowDay = `${getDay[0]}-${getDay[1]}-${Number(getDay[2]) + i}`
-				// filter API DATA BY NOW DAY
-				const filterDays = fiveDay['list'].filter(item => item.dt_txt.split(' ')[0] === nowDay)
-				data.push(filterDays)
+		
+			const location = localStorage.getItem('location')
+			if (location) {
+				dispatch(getFiveLocation(location))
 			}
-			setweather(data)
-		}
+			if (!location) {
+				dispatch(getFiveDays(ville))
+			}
+			if (isSucces) {
+				let data = []
+				for (var i = 0; i < 5; i++) {
+					// Get Today 05/05/2022
+					const nowDay = `${getDay[0]}-${getDay[1]}-${Number(getDay[2]) + i}`
+					// filter API DATA BY NOW DAY
+					const filterDays = fiveDay['list'].filter(item => item.dt_txt.split(' ')[0] === nowDay)
+					data.push(filterDays)
+				}
+				setweather(data)
+			}
+		
 	}, [dispatch, isError, message])
 
-	
 
 	function getMin(day) {
 		let data = []
@@ -49,6 +50,7 @@ export default function SeptDay({ville}) {
 		return Math.min(...data)
 	}
 
+
 	function getMax(day) {
 		let data = []
 		day.forEach(i =>
@@ -57,8 +59,10 @@ export default function SeptDay({ville}) {
 		return Math.max(...data)
 	}
 
+	console.log(weather);
+
 	if (isLoading) {
-		return <div>LOADING....</div>
+			return <LoadingMeteo/>
 	}
 	return (
 		<div className={cb('days', "container")}>

@@ -2,17 +2,44 @@ import React, { useState } from 'react'
 import cb from "classnames"
 
 import "./search-style.css"
-export default function Search({search}) {
-    const [nameVille, setNameVille] = useState("");
-    function handleSubmit(e) {
-        e.preventDefault();
-        search(nameVille)
-    }
-    return (
-        <form className='search__form' onSubmit={handleSubmit}>
-            <input className='search__input' placeholder='search' type="text" value={nameVille} 
-            onChange={(e) => setNameVille(e.target.value)} />
-            <button className={cb('search__button', "button")} type='submit'>Search</button>
-        </form>
-  )
+import { useDispatch } from 'react-redux';
+import { getWeatherLocation } from '../../featurs/today/todaySlice';
+export default function Search({ search }) {
+	const dispatch = useDispatch()
+	const [nameVille, setNameVille] = useState("");
+	function handleSubmit(e) {
+		e.preventDefault();
+		search(nameVille)
+	}
+
+	function handlePosition() {
+		navigator.geolocation.getCurrentPosition(result => {
+			if (result) {
+				const letLon = {
+					lat: result.coords.latitude,
+					lon: result.coords.longitude,
+				}
+				localStorage.setItem('location', JSON.stringify(letLon))
+				localStorage.setItem('cherchePar', "location")
+				localStorage.removeItem('ville')
+				dispatch(getWeatherLocation(JSON.stringify(letLon)))
+			}
+		})
+	}
+
+	return (
+		<div className={cb('searchBar', 'container')}>
+			<div onClick={handlePosition}>
+				<svg xmlns="http://www.w3.org/2000/svg" className="locationSearch" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+					<path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+					<path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+				</svg>
+			</div>
+			<form className='search__form' onSubmit={handleSubmit}>
+				<input className='search__input' placeholder='search' type="text" value={nameVille}
+					onChange={(e) => setNameVille(e.target.value)} />
+				<button className={cb('search__button', "button")} type='submit'>Search</button>
+			</form>
+		</div>
+	)
 }

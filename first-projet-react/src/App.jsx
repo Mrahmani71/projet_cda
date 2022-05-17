@@ -1,9 +1,10 @@
 // Modules
 import { useEffect, useState } from "react"
 import { ToastContainer } from 'react-toastify';
+import cb from "classnames"
 import 'react-toastify/dist/ReactToastify.css';
 
-// Components
+// // Components
 import Search from "./components/search/Search"
 import AnimationMeteo from "./components/meteo-animation/AnimationMeteo"
 import LonLat from "./components/lon-lat/LonLat"
@@ -12,18 +13,25 @@ import Wind from "./components/wind/Wind"
 import ToggleTheme from "./components/toggle-theme/ToggleTheme"
 import ErrorNotif from "./components/notifications/ErrorNotif"
 
-// redux
+// // redux
 import { useDispatch, useSelector } from "react-redux";
 import { getWeatherLocation, getWeatherToday } from "./featurs/today/todaySlice";
 
 
-// Styles
+// // Styles
 import "./assets/styles/main.css"
+import LoadingMeteo from "./components/loading/LoadingMeteo";
+import { reset } from "./featurs/fiveDay/fiveDaySlice";
+
+
 
 
 export default function App() {
-  const villeStorage = localStorage.getItem('ville')
+
   const dispatch = useDispatch()
+  const cherchePar = localStorage.getItem('cherchePar')
+  const ville = localStorage.getItem('ville')
+  const location = localStorage.getItem('location')
   const { today, isLoading, isError, message } = useSelector(
     (state) => state.today
   )
@@ -32,26 +40,47 @@ export default function App() {
     if (isError) {
       console.log(message)
     }
-    
-    if(navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((result) => {
-        if(result) {
+
+    if (location && cherchePar && cherchePar === "location") {
+      localStorage.removeItem('ville')
+      dispatch(getWeatherLocation(location))
+    }
+
+    else if (ville && cherchePar && cherchePar === "ville") {
+      localStorage.removeItem('location')
+      dispatch(getWeatherToday(ville))
+    }
+    else if (!ville) {
+      navigator.geolocation.getCurrentPosition(result => {
+        if (result) {
           const letLon = {
-            lat : result.coords.latitude,
+            lat: result.coords.latitude,
             lon: result.coords.longitude,
           }
           localStorage.setItem('location', JSON.stringify(letLon))
-          return dispatch(getWeatherLocation(letLon))
-        } 
+          localStorage.setItem('cherchePar', "location")
+          localStorage.removeItem('ville')
+        }
       })
-    } else if (villeStorage) {
-      localStorage.removeItem('location')
-      dispatch(getWeatherToday(villeStorage))
-    } else if (!villeStorage) {
-      localStorage.removeItem('location')
-      dispatch(getWeatherToday("Le Mans"))
-      localStorage.setItem('ville', "Le Mans")
+      navigator.permissions.query({ name: 'geolocation' }).then(permission => {
+        if (permission.state === "granted") {
+          return dispatch(getWeatherLocation(location))
+        }
+        else {
+          if (ville) {
+            localStorage.removeItem('location')
+            localStorage.setItem('cherchePar', "ville")
+            return dispatch(getWeatherToday(ville))
+          } else {
+            localStorage.removeItem('location')
+            localStorage.setItem('cherchePar', "ville")
+            localStorage.setItem('ville', "Le Mans")
+            return dispatch(getWeatherToday("Le Mans"))
+          }
+        }
+      })
     }
+
 
   }, [dispatch, isError, message])
 
@@ -60,8 +89,9 @@ export default function App() {
       return ErrorNotif("input is empty")
     }
 
-    if (!villeStorage || searchValue.toLowerCase() !== today.name.toLowerCase()) {
+    if (!ville || searchValue.toLowerCase() !== today.name.toLowerCase()) {
       localStorage.removeItem('location')
+      localStorage.setItem('cherchePar', "ville")
       localStorage.setItem('ville', searchValue)
       dispatch(getWeatherToday(searchValue))
     } else {
@@ -70,11 +100,12 @@ export default function App() {
   }
 
   if (isLoading) {
-    return <div>LOADING....</div>
+    return <div>HELLO</div>
+    //return <LoadingMeteo/>
   }
-  // https://openweathermap.org/current
+  //   // https://openweathermap.org/current
   return (
-    <main className="main">
+    <main className={cb("main", "container")}>
       <ToastContainer />
       {
         today.name &&
@@ -90,7 +121,7 @@ export default function App() {
             <Wind weather={today} />
           </div>
           <h3 className="h3">Les Jours Suivants</h3>
-          <SeptDay ville={villeStorage} />
+          <SeptDay ville={ville} />
         </>
       }
 

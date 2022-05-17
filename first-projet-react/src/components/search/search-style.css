@@ -1,12 +1,29 @@
 @import "/src/assets/styles/base.css";
 
+.searchBar {
+    display: inline-flex;
+    align-items: center;
+    flex-direction: row;
+    column-gap: 1em;
+}
+
+.locationSearch {
+    width: 2em;
+    height: 2em;
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: .3s;
+}
+.locationSearch:hover {
+    color: var(--color-primary-alt);
+}
 
 .search__form {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 80vw;
     align-items: stretch;
+    width: 100%
 }
 
 .search__input {

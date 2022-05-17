@@ -5,6 +5,7 @@ import Rainy from "./template/Rainy"
 import ThunderStorm from './template/ThunderStorm'
 import Flurries from './template/Flurries'
 import FewCloudy from './template/FewCloudy'
+import Night from './template/night'
 
 export default function AnimationMeteo({weather}) {
   
@@ -27,7 +28,7 @@ export default function AnimationMeteo({weather}) {
     {weather.weather[0].icon === "50d" && <Sunny/>}
 
     {/* Nuit */}
-    {weather.weather[0].icon === "01n" && <Sunny/>}  {/* * */}
+    {weather.weather[0].icon === "01n" && <Night/>}  {/* * */}
     {weather.weather[0].icon === "02n" && <FewCloudy/>} {/* * */}
     {weather.weather[0].icon === "03n" && <Cloudy/>}
     {weather.weather[0].icon === "04n" && <Cloudy/>}
