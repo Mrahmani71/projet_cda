@@ -1,41 +1,30 @@
 
-import cb from 'classnames'
 import React, { useEffect, useState } from 'react'
-import 'swiper/css';
 import { useDispatch, useSelector } from 'react-redux'
-import { getFiveDays, getFiveLocation } from '../../featurs/fiveDay/fiveDaySlice'
-import LoadingMeteo from '../loading/LoadingMeteo'
-
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import {Navigation, Pagination } from "swiper";
+import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-
 import AnimationMeteo from '../meteo-animation/AnimationMeteo'
 import "./days-style.css"
+
 // 
-export default function SeptDay({ ville }) {
+export default function SeptDay() {
+	const [weather, setweather] = useState([])
+	const { fiveDay, isLoading, isError, message } = useSelector((state) => state.fiveDay)
 	const dispatch = useDispatch()
 	const getDay = new Date().toLocaleDateString().split('/').reverse();
-	const [weather, setweather] = useState([])
-	const { fiveDay, isLoading, isError, message, isSucces } = useSelector((state) => state.fiveDay)
+
 
 	useEffect(() => {
 		if (isError) {
 			console.log(message);
 		}
-
-		const location = localStorage.getItem('location')
-		if (location) {
-			dispatch(getFiveLocation(location))
-		}
-		if (!location) {
-			dispatch(getFiveDays(ville))
-		}
-		if (isSucces) {
+		
+		if(fiveDay['list']) {
 			let data = []
 			for (var i = 0; i < 5; i++) {
 				// Get Today 05/05/2022
@@ -47,8 +36,12 @@ export default function SeptDay({ ville }) {
 			setweather(data)
 		}
 
-	}, [dispatch, isError, message])
+	}, [dispatch, isError, message, fiveDay])
 
+
+	if (isLoading || !fiveDay) {
+		return <div>LOADING.....</div>
+	}
 
 	function getMin(day) {
 		let data = []
@@ -67,37 +60,33 @@ export default function SeptDay({ ville }) {
 		return Math.max(...data)
 	}
 
-	console.log(weather);
-
-	if (isLoading) {
-		return <LoadingMeteo />
-	}
 	return (
 		<Swiper
-		navigation={true}
-		modules={[Navigation]}
-		centeredSlides={true}
-		className="mySwiper"
-		breakpoints= {{
-			// when window width is >= 320px
-			600: {
-				slidesPerView: 1,
-				spaceBetween: 20
-			},
-			// when window width is >= 480px
-			768: {
-				slidesPerView: 2,
-				spaceBetween: 30
-			},
-			// when window width is >= 640px
-			992: {
-				slidesPerView: 3,
-				spaceBetween: 40
-			}}
-		}
-	>
+			navigation={true}
+			modules={[Navigation]}
+			centeredSlides={true}
+			className="mySwiper"
+			breakpoints={{
+				// when window width is >= 320px
+				600: {
+					slidesPerView: 1,
+					spaceBetween: 20
+				},
+				// when window width is >= 480px
+				768: {
+					slidesPerView: 2,
+					spaceBetween: 30
+				},
+				// when window width is >= 640px
+				992: {
+					slidesPerView: 3,
+					spaceBetween: 40
+				}
+			}
+			}
+		>
 			<div>
-				{weather &&
+				{
 					weather.map((day, index) =>
 
 						<SwiperSlide className='one-day' key={index}>

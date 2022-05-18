@@ -20,13 +20,11 @@ import { getWeatherLocation, getWeatherToday } from "./featurs/today/todaySlice"
 
 // Styles
 import "./assets/styles/main.css"
+import { getFiveDays, getFiveLocation } from "./featurs/fiveDay/fiveDaySlice";
 
 export default function App() {
-
+  const ville = localStorage.getItem("city")
   const dispatch = useDispatch()
-  const cherchePar = localStorage.getItem('cherchePar')
-  const ville = localStorage.getItem('ville')
-  const location = localStorage.getItem('location')
   const { today, isLoading, isError, message } = useSelector(
     (state) => state.today
   )
@@ -37,89 +35,70 @@ export default function App() {
       console.log(message)
     }
 
-    if (location && cherchePar && cherchePar === "location") {
-      localStorage.removeItem('ville')
-      dispatch(getWeatherLocation(location))
+    if (!ville) {
+      function getLongAndLat() {
+        return new Promise((resolve, reject) =>
+          navigator.geolocation.getCurrentPosition(resolve, reject)
+        );
+      }
     }
+    const locateButtonFetch = async () => {
+      try {
+        let position = await getLongAndLat(),
+          { coords } = position;
+        console.log(coords);
+        dispatch(getWeatherLocation(coords))
+        dispatch(getFiveLocation(coords))
+        localStorage.removeItem('city')
+      } catch (e) {
+        console.log('Error: ' + e.message);
+        if (ville) {
+          dispatch(getWeatherToday(ville))
+          dispatch(getFiveDays(ville))
+        } else {
+          dispatch(getWeatherToday("Le Mans"))
+          dispatch(getFiveDays("Le Mans"))
+        }
+      }
+    }
+    locateButtonFetch()
 
-    else if (ville && cherchePar && cherchePar === "ville") {
-      localStorage.removeItem('location')
-      dispatch(getWeatherToday(ville))
-    }
-    else if (!ville) {
-      navigator.geolocation.getCurrentPosition(result => {
-        if (result) {
-          const letLon = {
-            lat: result.coords.latitude,
-            lon: result.coords.longitude,
-          }
-          localStorage.setItem('location', JSON.stringify(letLon))
-          localStorage.setItem('cherchePar', "location")
-          localStorage.removeItem('ville')
-        }
-      })
-      navigator.permissions.query({ name: 'geolocation' }).then(permission => {
-        if (permission.state === "granted") {
-          return dispatch(getWeatherLocation(location))
-        }
-        else {
-          if (ville) {
-            localStorage.removeItem('location')
-            localStorage.setItem('cherchePar', "ville")
-            return dispatch(getWeatherToday(ville))
-          } else {
-            localStorage.removeItem('location')
-            localStorage.setItem('cherchePar', "ville")
-            localStorage.setItem('ville', "Le Mans")
-            return dispatch(getWeatherToday("Le Mans"))
-          }
-        }
-      })
-    }
-}, [dispatch, isError, message])
+  }, [dispatch, isError, message])
 
   const search = async (searchValue) => {
     if (!searchValue) {
       return ErrorNotif("input is empty")
     }
     if (!ville || searchValue.toLowerCase() !== today.name.toLowerCase()) {
-      localStorage.removeItem('location')
-      localStorage.setItem('cherchePar', "ville")
-      localStorage.setItem('ville', searchValue)
       dispatch(getWeatherToday(searchValue))
+      dispatch(getFiveDays(searchValue))
+      localStorage.setItem('city', searchValue)
     } else {
-      return ErrorNotif("invalid Error")
+      return ErrorNotif("no repeat")
     }
   }
 
-  if (isLoading) {
+  if (isLoading || !today || !today.main) {
     return <div>HELLO</div>
   }
 
-  let date = new Date(today.dt * 1000);
-    // https://openweathermap.org/current
+  // https://openweathermap.org/current
   return (
     <main className={cb("main", "container")}>
-       <ToastContainer />
-      {
-        today.name &&
-        <>
-        <ToggleTheme />
-           <Search search={search} />
-           <h1 className="h1">{today.name}</h1>
-           <h2 className="h2">{today.main.temp}</h2>
-           <p>{date.toLocaleString()}</p>
-           <AnimationMeteo weather={today} />
+      <ToastContainer />
+      <ToggleTheme />
+      <Search search={search} />
+      <h1 className="h1">{today.name}</h1>
+      <h2 className="h2">{today.main.temp}</h2>
 
-           <div className="details">
-             <LonLat weather={today} />
-             <Wind weather={today} />
-           </div>
-           <h3 className="h3">Les Jours Suivants</h3>
-           <SeptDay ville={ville} />
-        </>
-       }
+      <AnimationMeteo weather={today} />
 
-   </main>
+      <div className="details">
+        <LonLat weather={today} />
+        <Wind weather={today} />
+      </div>
+      <h3 className="h3">Les Jours Suivants</h3>
+      <SeptDay />
+    </main>
   )
 } 

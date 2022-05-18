@@ -7,8 +7,7 @@ const getFiveDays = async(ville) => {
 }
 
 const getFiveLocation = async (location) => {
-    const loc = JSON.parse(location)
-    const response = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${loc.lat}&lon=${loc.lon}&units=metric&appid=${import.meta.env.VITE_API}`)
+    const response = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${location.latitude}&lon=${location.longitude}&units=metric&appid=${import.meta.env.VITE_API}`)
     return response.data
 }
 

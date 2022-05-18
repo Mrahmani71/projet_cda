@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  firstprojetreact:
+    image: firstprojetreact
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: develepement
+      VITE_API: 0ff1f1d3219100085377002952db296f
+    ports:
+      - 3000:3000
