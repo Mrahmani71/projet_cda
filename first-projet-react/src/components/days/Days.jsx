@@ -66,6 +66,7 @@ export default function SeptDay() {
 			modules={[Navigation]}
 			centeredSlides={true}
 			className="mySwiper"
+			initialSlide={1}
 			breakpoints={{
 				// when window width is >= 320px
 				600: {
