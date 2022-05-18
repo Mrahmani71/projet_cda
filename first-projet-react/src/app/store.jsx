@@ -6,5 +6,6 @@ export const store = configureStore ({
     reducer: {
         today : todayReducer,
         fiveDay : fiveDaysReducer,
-    }
+    },
+    devTools: import.meta.env.VITE_NODE_ENV !== 'production',
 })
