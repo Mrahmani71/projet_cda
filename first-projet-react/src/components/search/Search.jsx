@@ -5,6 +5,7 @@ import "./search-style.css"
 import { useDispatch } from 'react-redux';
 import { getWeatherLocation } from '../../featurs/today/todaySlice';
 export default function Search({ search }) {
+	const ville = localStorage.getItem("city")
 	const dispatch = useDispatch()
 	const [nameVille, setNameVille] = useState("");
 	function handleSubmit(e) {
