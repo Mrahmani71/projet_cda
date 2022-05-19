@@ -81,7 +81,7 @@ export default function App() {
   if (isLoading || !today || !today.main) {
     return <div>HELLO</div>
   }
-  console.log("JOOJOO",import.meta.env.VITE_NODE_ENV)
+
   // https://openweathermap.org/current
   return (
     <main className={cb("main", "container")}>
