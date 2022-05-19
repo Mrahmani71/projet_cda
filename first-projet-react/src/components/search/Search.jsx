@@ -3,8 +3,12 @@ import cb from "classnames"
 
 import "./search-style.css"
 import { useDispatch } from 'react-redux';
-import { getWeatherLocation } from '../../featurs/today/todaySlice';
+import { getWeatherLocation, getWeatherToday } from '../../featurs/today/todaySlice';
+import { getFiveDays } from '../../featurs/fiveDay/fiveDaySlice';
+
+
 export default function Search({ search }) {
+	const ville = localStorage.getItem("city")
 	const dispatch = useDispatch()
 	const [nameVille, setNameVille] = useState("");
 	function handleSubmit(e) {
@@ -13,18 +17,33 @@ export default function Search({ search }) {
 	}
 
 	function handlePosition() {
-		navigator.geolocation.getCurrentPosition(result => {
-			if (result) {
-				const letLon = {
-					lat: result.coords.latitude,
-					lon: result.coords.longitude,
+
+		function getLongAndLat() {
+			return new Promise((resolve, reject) =>
+				navigator.geolocation.getCurrentPosition(resolve, reject)
+			);
+		}
+
+		const locateButtonFetch = async () => {
+			try {
+				let position = await getLongAndLat(),
+					{ coords } = position;
+				console.log(coords);
+				dispatch(getWeatherLocation(coords))
+				dispatch(getFiveLocation(coords))
+				localStorage.removeItem('city')
+			} catch (e) {
+				console.log('Error: ' + e.message);
+				if (ville) {
+					dispatch(getWeatherToday(ville))
+					dispatch(getFiveDays(ville))
+				} else {
+					dispatch(getWeatherToday("Le Mans"))
+					dispatch(getFiveDays("Le Mans"))
 				}
-				localStorage.setItem('location', JSON.stringify(letLon))
-				localStorage.setItem('cherchePar', "location")
-				localStorage.removeItem('ville')
-				dispatch(getWeatherLocation(JSON.stringify(letLon)))
 			}
-		})
+		}
+		locateButtonFetch()
 	}
 
 	return (
@@ -43,3 +62,4 @@ export default function Search({ search }) {
 		</div>
 	)
 }
+
