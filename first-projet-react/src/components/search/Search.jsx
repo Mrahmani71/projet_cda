@@ -3,7 +3,10 @@ import cb from "classnames"
 
 import "./search-style.css"
 import { useDispatch } from 'react-redux';
-import { getWeatherLocation } from '../../featurs/today/todaySlice';
+import { getWeatherLocation, getWeatherToday } from '../../featurs/today/todaySlice';
+import { getFiveDays } from '../../featurs/fiveDay/fiveDaySlice';
+
+
 export default function Search({ search }) {
 	const ville = localStorage.getItem("city")
 	const dispatch = useDispatch()
