@@ -1,5 +1,5 @@
 // // Modules
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import cb from "classnames"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -29,6 +29,12 @@ export default function App() {
     (state) => state.today
   )
 
+  // function getLongAndLat() {
+  //   return new Promise((resolve, reject) =>
+  //     navigator.geolocation.getCurrentPosition(resolve, reject)
+  //   );
+  // }
+
   useEffect(() => {
 
     if (isError) {
@@ -36,11 +42,9 @@ export default function App() {
     }
 
     // if (!ville) {
-    //   function getLongAndLat() {
-    //     return new Promise((resolve, reject) =>
-    //       navigator.geolocation.getCurrentPosition(resolve, reject)
-    //     );
-    //   }
+    //   (async function () {
+    //     await getLongAndLat()
+    //  })();
     // }
     // const locateButtonFetch = async () => {
     //   try {
@@ -56,14 +60,13 @@ export default function App() {
           dispatch(getWeatherToday(ville))
           dispatch(getFiveDays(ville))
         } else {
-         dispatch(getWeatherToday("Le Mans"))
-         dispatch(getFiveDays("Le Mans"))
+          dispatch(getWeatherToday("Le Mans"))
+          dispatch(getFiveDays("Le Mans"))
         }
-      // }
     // }
     // locateButtonFetch()
 
-  }, [dispatch, isError, message])
+  }, [dispatch, isError, message, ville])
 
   const search = async (searchValue) => {
     if (!searchValue) {
@@ -98,7 +101,7 @@ export default function App() {
         <Wind weather={today} />
       </div>
       <h3 className="h3">Les Jours Suivants</h3>
-      {/* <SeptDay /> */}
+      <SeptDay />
     </main>
   )
 } 

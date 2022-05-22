@@ -88,7 +88,7 @@ export default function SeptDay() {
 			}
 		>
 			<div>
-				{ weather &&
+				{
 					weather.map((day, index) =>
 
 						<SwiperSlide className='one-day' key={index}>

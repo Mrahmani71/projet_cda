@@ -1,0 +1,44 @@
+@import "/src/assets/styles/base.css";
+
+.searchBar {
+    display: inline-flex;
+    align-items: center;
+    flex-direction: row;
+    column-gap: 1em;
+}
+
+.locationSearch {
+    width: 2em;
+    height: 2em;
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: .3s;
+}
+.locationSearch:hover {
+    color: var(--color-primary-alt);
+}
+
+.search__form {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-items: stretch;
+    width: 100%
+}
+
+.search__input {
+    flex-grow: 1;
+    border: 1px solid var(--color-primary);
+    outline: none;
+    font-size: 1.1em;
+    text-indent: 8px;
+    text-transform: capitalize;
+    font-size: var(--f-s-md);
+    
+    color: var(--color-primary-alt);
+}
+
+.dark-theme .search__input{
+    border: 1px solid var(--color-body);
+    border-right: 0;
+}
