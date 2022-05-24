@@ -8,7 +8,7 @@
     "url": "https://mrah.fr"
   },
   "maintainer": "Rahmani Mohammad",
-  "homepage": "https://mrah.fr",
+  "homepage": "./",
   "description": "A sample Apache Cordova application that responds to the deviceready event.",
   "main": "public/electron.js",
   "scripts": {
