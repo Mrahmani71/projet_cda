@@ -1,9 +1,0 @@
-@import "/src/assets/styles/base.css";
-
-.position {
-    display: flex;
-    margin-left: auto;
-    margin-right: auto;
-    justify-content: center;
-    column-gap: 1em;
-}
