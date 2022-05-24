@@ -1,8 +1,8 @@
 import axios from "axios";
 
-
+const API_URL = '/api/fivedays/'
 const getFiveDays = async(ville) => {
-    const response = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?appid=${process.env.REACT_APP_API}&q=${ville}&units=metric`)
+    const response = await axios.get(API_URL + ville)
     return response.data
 }
 

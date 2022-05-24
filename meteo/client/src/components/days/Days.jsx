@@ -18,7 +18,6 @@ export default function SeptDay() {
 	const { fiveDay, isLoading, isError, message } = useSelector((state) => state.fiveDay)
 	const dispatch = useDispatch()
 	const getDay = new Date().toLocaleDateString('fr-FR').split('/').reverse()
-	console.log("get Day", getDay);
 
 	useEffect(() => {
 		if (isError) {
@@ -37,7 +36,6 @@ export default function SeptDay() {
 		for (var i = 0; i < 5; i++) {
 			// Get Today 05/05/2022
 			const nowDay = `${getDay[0]}-${getDay[1]}-${Number(getDay[2]) + i}`
-			console.log("now Day", nowDay)
 			// filter API DATA BY NOW DAY
 			// const filterDays = fiveDay['list'].filter(item => item["dt_txt"].slice(0,10) === nowDay)
 			const filterDays = fiveDay['list'].filter(function (item) {

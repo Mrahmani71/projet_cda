@@ -2,6 +2,7 @@
   "name": "com.mrah.meteo",
   "displayName": "Meteo",
   "version": "1.0.0",
+  "proxy": "http://localhost:5000",
   "author": {
     "name": "MORMOR",
     "email": "MOR@mrah.fr",
