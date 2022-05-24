@@ -1,6 +1,7 @@
 import React from 'react'
 
-export default function Wind({weather}) {
+export default function Wind(props) {
+  const {weather} = props
   return (
     <div>
     <h4 className='h4'>Wind</h4>

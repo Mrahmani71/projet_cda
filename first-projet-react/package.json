@@ -21,13 +21,17 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "dist": "electron-builder",
-    "hello": "electron ."
+    "hello": "electron .",
+    "lint": "eslint src --ext .jsx"
   },
   "dependencies": {
+    "@capacitor/android": "^3.5.1",
+    "@capacitor/core": "^3.5.1",
     "@reduxjs/toolkit": "^1.8.1",
     "axios": "^0.27.2",
     "classnames": "^2.3.1",
     "electron-squirrel-startup": "^1.0.0",
+    "moment": "^2.29.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-loading-skeleton": "^3.1.0",
@@ -36,6 +40,7 @@
     "swiper": "^8.1.5"
   },
   "devDependencies": {
+    "@capacitor/cli": "^3.5.1",
     "@electron-forge/cli": "^6.0.0-beta.63",
     "@electron-forge/maker-deb": "^6.0.0-beta.63",
     "@electron-forge/maker-rpm": "^6.0.0-beta.63",
@@ -49,6 +54,8 @@
     "cross-env": "^7.0.3",
     "electron": "^18.2.4",
     "electron-is-dev": "^2.0.0",
+    "eslint": "^8.16.0",
+    "eslint-plugin-react": "^7.30.0",
     "rpmbuild": "^0.0.23",
     "vite": "^2.9.7",
     "vite-plugin-babel": "^1.0.0",

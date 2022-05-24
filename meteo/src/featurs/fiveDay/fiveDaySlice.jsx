@@ -35,6 +35,7 @@ export const fiveDaysSlice = createSlice({
 	name: "fiveDays",
 	initialState,
 	reducers: {
+		// eslint-disable-next-line no-unused-vars
 		reset: (state) => initialState,
 	},
 	extraReducers: (builder) => {

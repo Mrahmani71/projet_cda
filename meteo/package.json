@@ -1,7 +1,25 @@
 {
-  "name": "meteo",
-  "version": "0.1.0",
-  "private": true,
+  "name": "com.mrah.meteo",
+  "displayName": "Meteo",
+  "version": "1.0.0",
+  "author": {
+    "name": "MORMOR",
+    "email": "MOR@mrah.fr",
+    "url": "https://mrah.fr"
+  },
+  "maintainer": "Rahmani Mohammad",
+  "homepage": "https://mrah.fr",
+  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "main": "public/electron.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "make": "electron-forge make",
+    "dist": "electron-builder",
+    "package": "electron-forge package"
+  },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.16.4",
@@ -18,18 +36,21 @@
     "swiper": "^8.1.5",
     "web-vitals": "^2.1.4"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.63",
+    "@electron-forge/maker-deb": "^6.0.0-beta.63",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.63",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
+    "@electron-forge/maker-zip": "^6.0.0-beta.63",
+    "cordova-android": "^10.1.2",
+    "electron": "18.2.4",
+    "eslint": "^8.16.0",
+    "eslint-plugin-react": "^7.30.0"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "license": "Apache-2.0",
   "browserslist": {
     "production": [
       ">0.2%",
@@ -40,6 +61,11 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "cordova": {
+    "platforms": [
+      "android"
     ]
   }
 }

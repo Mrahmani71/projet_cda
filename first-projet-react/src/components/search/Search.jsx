@@ -4,7 +4,7 @@ import cb from "classnames"
 import "./search-style.css"
 import { useDispatch } from 'react-redux';
 import { getWeatherLocation, getWeatherToday } from '../../featurs/today/todaySlice';
-import { getFiveDays } from '../../featurs/fiveDay/fiveDaySlice';
+import { getFiveDays, getFiveLocation } from '../../featurs/fiveDay/fiveDaySlice';
 
 
 export default function Search({ search }) {

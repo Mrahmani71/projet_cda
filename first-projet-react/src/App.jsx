@@ -1,5 +1,6 @@
 // // Modules
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
+import React from 'react';
 import cb from "classnames"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -28,30 +29,30 @@ export default function App() {
   const { today, isLoading, isError, message } = useSelector(
     (state) => state.today
   )
-
+  function getLongAndLat() {
+    return new Promise((resolve, reject) =>
+      navigator.geolocation.getCurrentPosition(resolve, reject)
+    );
+  }
   useEffect(() => {
 
     if (isError) {
       console.log(message)
     }
 
-    // if (!ville) {
-    //   function getLongAndLat() {
-    //     return new Promise((resolve, reject) =>
-    //       navigator.geolocation.getCurrentPosition(resolve, reject)
-    //     );
-    //   }
-    // }
-    // const locateButtonFetch = async () => {
-    //   try {
-    //     let position = await getLongAndLat(),
-    //       { coords } = position;
-    //     console.log(coords);
-    //     dispatch(getWeatherLocation(coords))
-    //     dispatch(getFiveLocation(coords))
-    //     localStorage.removeItem('city')
-    //   } catch (e) {
-    //     console.log('Error: ' + e.message);
+    if (!ville) {
+      getLongAndLat()
+    }
+    const locateButtonFetch = async () => {
+      try {
+        let position = await getLongAndLat(),
+          { coords } = position;
+        console.log(coords);
+        dispatch(getWeatherLocation(coords))
+        dispatch(getFiveLocation(coords))
+        localStorage.removeItem('city')
+      } catch (e) {
+        console.log('Error: ' + e.message);
         if (ville) {
           dispatch(getWeatherToday(ville))
           dispatch(getFiveDays(ville))
@@ -59,9 +60,9 @@ export default function App() {
          dispatch(getWeatherToday("Le Mans"))
          dispatch(getFiveDays("Le Mans"))
         }
-      // }
-    // }
-    // locateButtonFetch()
+      }
+    }
+    locateButtonFetch()
 
   }, [dispatch, isError, message])
 
@@ -78,12 +79,13 @@ export default function App() {
     }
   }
 
-  if (isLoading || !today || !today.main) {
+  if (isLoading || !today.main) {
     return <div>HELLO</div>
   }
 
   // https://openweathermap.org/current
   return (
+    
     <main className={cb("main", "container")}>
       <ToastContainer />
       <ToggleTheme />
@@ -98,7 +100,7 @@ export default function App() {
         <Wind weather={today} />
       </div>
       <h3 className="h3">Les Jours Suivants</h3>
-      {/* <SeptDay /> */}
+      <SeptDay />
     </main>
   )
 } 
