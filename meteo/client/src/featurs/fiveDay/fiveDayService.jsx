@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = '/api/fivedays/'
+const API_URL = 'http://192.168.1.54:5000/api/fivedays/'
 const getFiveDays = async(ville) => {
     const response = await axios.get(API_URL + ville)
     return response.data
