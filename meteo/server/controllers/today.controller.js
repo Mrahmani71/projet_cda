@@ -9,9 +9,8 @@ exports.getTodayWeather = async (req, res) => {
   if (ville) {
     const resonse = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${ville}&units=metric&appid=${process.env.REACT_APP_API}`)
     data = await resonse.json()
-
     if (Number(data.cod) === 404) {
-      throw new Error("Hello error!")
+      res.status(404).json(data)
     }
     else {
       res.status(200).json(data)

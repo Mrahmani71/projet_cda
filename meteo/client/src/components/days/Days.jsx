@@ -14,14 +14,21 @@ import "./days-style.css"
 // 
 export default function SeptDay() {
 	const [weather, setweather] = useState([])
+	const [width, setWidth] = useState()
 	let data = []
 	const { fiveDay, isLoading, isError, message } = useSelector((state) => state.fiveDay)
 	const dispatch = useDispatch()
 	const getDay = new Date().toLocaleDateString('fr-FR').split('/').reverse()
 
+
 	useEffect(() => {
 		if (isError) {
 			console.log(message);
+		}
+		if (window.innerWidth < 768) {
+			setWidth(0)
+		} else {
+			setWidth(1)
 		}
 		setweather(data)
 	}, [dispatch, isError, message, fiveDay])
@@ -63,14 +70,13 @@ export default function SeptDay() {
 		)
 		return Math.max(...data)
 	}
-
 	return (
 		<Swiper
 			navigation={true}
 			modules={[Navigation]}
 			centeredSlides={true}
 			className="mySwiper"
-			initialSlide={0}
+			initialSlide={width}
 			breakpoints={{
 				// when window width is >= 320px
 				600: {
@@ -79,14 +85,13 @@ export default function SeptDay() {
 				},
 				// when window width is >= 480px
 				768: {
-					initialSlide: 1,
-					slidesPerView: 2,
-					spaceBetween: 30
+					slidesPerView: 3,
+					spaceBetween: 10
 				},
 				// when window width is >= 640px
 				992: {
 					slidesPerView: 3,
-					spaceBetween: 40
+					spaceBetween: 30
 				}
 			}
 			}

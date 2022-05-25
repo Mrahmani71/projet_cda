@@ -1,0 +1,43 @@
+@import "../../assets/styles/base.css";
+
+.navbar {
+  background-color: var(--color-title);
+  padding: 1em;
+  border-radius: 1em;
+  -webkit-box-shadow: 0px 0px 16px -3px rgba(224, 224, 224, 0.8); 
+  box-shadow: 0px 0px 8px -2px var(--color-primary-light);
+  position: fixed;
+  width: 90%;
+  margin: 0 auto;
+  bottom: 0;
+  transform: translateY(-10%);
+  z-index: 100;
+}
+
+.nav_items {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.item {
+  color: var(--color-body) !important;
+  cursor: pointer;
+  transition: .4s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: .5em;
+}
+.item * {
+  cursor: pointer;
+}
+
+.item:hover {
+  color: var(--color-primary-light) !important;
+}
+
+.item > svg {
+  cursor: pointer;
+  width: 1.8em;
+}

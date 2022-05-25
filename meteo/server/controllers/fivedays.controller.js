@@ -11,7 +11,7 @@ exports.getFiveWeather = async (req, res) => {
     data = await resonse.json()
 
     if (Number(data.cod) === 404) {
-      throw new Error("Hello error!")
+      res.status(404).json(data)
     }
     else {
       res.status(200).json(data)

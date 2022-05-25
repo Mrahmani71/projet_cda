@@ -1,4 +1,7 @@
 
+.toggle__container * {
+    cursor: pointer !important;
+}
 .toggle__container {
     position: relative;
     margin-top: auto;
@@ -7,7 +10,7 @@
     flex-direction: flex-start;
     justify-content: center;
     align-items: center;
-    width: 10em;
+    width: max-content;
     height: 5em;
 }
 .button__toggle, .button__toggle > svg {
@@ -23,11 +26,7 @@
     height: 2.5em;
     cursor: pointer;
     animation: toggle .3s;
-    
-}
-.dark-theme .button__toggle {
-    left: 68%;
-    
+    transition: .3s;  
 }
 
 
