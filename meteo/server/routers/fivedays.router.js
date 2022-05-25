@@ -4,12 +4,10 @@ const router = express.Router()
 // Middleware
 const {testMiddleware} = require('../middlewares/test')
 // Controllers
-const { getFiveWeather, postFiveWeather } = require("../controllers/fivedays.controller.js")
-// Router
+const { getFiveWeather } = require("../controllers/fivedays.controller.js")
+
 
 // Config Router API
 router.route('/:ville').get(testMiddleware, getFiveWeather)
-router.route('/').post(testMiddleware, postFiveWeather)
-
 
 module.exports = router

@@ -18,17 +18,3 @@ exports.getFiveWeather = async (req, res) => {
     }
   }
 }
-
-// Méthod POST pour chercher la météo d'une ville
-exports.postFiveWeather = async (req, res) => {
-  const { ville } = req.body
-  if (!ville) {
-    res.status(404).json({ message: "Input is empty" })
-  } else {
-    const resonse = await fetch(`https://api.openweathermap.org/data/2.5/forecast?appid=${process.env.REACT_APP_API}&q=${ville}&units=metric`)
-    const data = await resonse.json()
-    res.status(200).json({ body: data })
-  }
-
-
-}
