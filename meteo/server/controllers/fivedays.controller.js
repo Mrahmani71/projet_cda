@@ -1,8 +1,8 @@
 /* global localStorage */
-const fetch = require('cross-fetch')
+import fetch from 'cross-fetch'
 
 // Méthod GET pour récupérer la météo d'une ville
-exports.getFiveWeather = async (req, res) => {
+const getFiveWeather = async (req, res) => {
   const { ville } = req.params
   let data
   // Chercher par localStorage
@@ -18,3 +18,5 @@ exports.getFiveWeather = async (req, res) => {
     }
   }
 }
+
+export default getFiveWeather

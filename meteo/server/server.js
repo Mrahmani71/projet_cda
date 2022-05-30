@@ -1,11 +1,14 @@
-require("dotenv").config()
-
 // Import Modules
-const express = require('express')
-const path = require('path')
-const app = express()
-const cors = require('cors')
+import dotenv from "dotenv"
+import express from "express";
+import path from 'path';
+const __dirname = path.resolve();
+import cors from 'cors';
+import todayRouter from './routers/todayRouter.js'
+import fiveDaysRouter from "./routers/fivedaysRouter.js"
 
+const app = express()
+dotenv.config()
 // Config Port
 const PORT = process.env.PORT_SERVER
 
@@ -27,10 +30,9 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }))
-
 // Config Route
-app.use('/api/today', require('./routers/today.router'))
-app.use('/api/fivedays', require('./routers/fivedays.router'))
+app.use('/api/today', todayRouter)
+app.use('/api/fivedays', fiveDaysRouter)
 
 // Config Listen
 app.listen(PORT, () => {
