@@ -1,12 +1,12 @@
-import Atom__Cloud from "../Atom/Atom__Cloud"
-import Atom__CloudMove from "../Atom/Atom__CloudMove"
+import AtomCloud from "../Atom/AtomCloud";
+import AtomCloudMove from "../Atom/AtomCloudMove";
 
 export default function Cloudy() {
 	return (
 		<div className="icon">
-				<Atom__CloudMove zIndex="-1" top="20%" duration="3"/>
-				<Atom__CloudMove zIndex="3" top="45%" duration="4.5"/>
-				<Atom__Cloud />
+				<AtomCloudMove zIndex="-1" top="20%" duration="3"/>
+				<AtomCloudMove zIndex="3" top="45%" duration="4.5"/>
+				<AtomCloud/>
 		</div>
 	)
 }

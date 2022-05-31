@@ -1,12 +1,11 @@
-import Atom__Cloud from "../Atom/Atom__Cloud";
-import Atom__Rain from "../Atom/Atom__Rain";
-
+import AtomCloud from "../Atom/AtomCloud";
+import AtomRain from "../Atom/AtomRain";
 
 export default function Rainy() {
 	return (
 		<div className="icon">
-			<Atom__Cloud />
-			<Atom__Rain/>
+			<AtomCloud />
+			<AtomRain/>
 		</div>
 	)
 }

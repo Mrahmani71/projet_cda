@@ -24,7 +24,7 @@ body.dark-theme {
 /******************* ATOMS */
 
 /* CLOUD */
-.atom__cloud {
+.atom_cloud {
 	z-index: 1;
 	width: 40%;
 	height: 40%;
@@ -38,7 +38,7 @@ body.dark-theme {
 		2.0625em 0.9375em 0 -0.5625em var(--color-animation-secendry);
 }
 
-.atom__cloud::after {
+.atom_cloud::after {
 	z-index: 1;
 	content: '';
 	position: absolute;
@@ -54,7 +54,7 @@ body.dark-theme {
 }
 
 /* CLOUD MOVE */
-.atom__cloudmove {
+.atom_cloudmove {
 	/* z-index: -1; */
 	width: 6.6875em;
 	height: 4.6875em;
@@ -72,12 +72,12 @@ body.dark-theme {
 	animation: cloud linear infinite;
 	
 }
-.atom__cloudmove::after {
+.atom_cloudmove::after {
 	background: var(--color-animation-secendry);
 }
 
 
-.atom__sun {
+.atom_sun {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -90,7 +90,7 @@ body.dark-theme {
 	animation: spin 12s infinite linear;
 }
 
-.atom__rays {
+.atom_rays {
 	position: absolute;
 	top: -2em;
 	left: 50%;
@@ -103,8 +103,8 @@ body.dark-theme {
 	box-shadow: 0 5.375em var(--color-animation-yellow);
 }
 
-.atom__rays:before,
-.atom__rays:after {
+.atom_rays:before,
+.atom_rays:after {
 	content: '';
 	position: absolute;
 	top: 0em;
@@ -119,11 +119,11 @@ body.dark-theme {
 	box-shadow: 0 5.375em var(--color-animation-yellow);
 }
 
-.atom__rays:before {
+.atom_rays:before {
 	transform: rotate(120deg);
 }
 
-.atom__rain {
+.atom_rain {
 	position: absolute;
 	z-index: 2;
 	top: 50%;
@@ -135,7 +135,7 @@ body.dark-theme {
 }
 
   
-.atom__rain:after {
+.atom_rain:after {
 	content: '';
 	position: absolute;
 	z-index: 2;
@@ -154,7 +154,7 @@ body.dark-theme {
 	animation: rain 3s linear infinite;
   }
 
-.atom__moon {
+.atom_moon {
 	position: absolute;
 	width: 3.5em;
 	height: 3.5em;
@@ -164,7 +164,7 @@ body.dark-theme {
 	animation: moon 12s infinite linear;
 }
 
-.dark-theme.atom__moon {
+.dark-theme.atom_moon {
 	box-shadow: 0 0 10px 0.375em var(--color-animation-primary);
 }
 

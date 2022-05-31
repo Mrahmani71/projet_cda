@@ -12,7 +12,7 @@ import AnimationMeteo from '../meteo-animation/AnimationMeteo'
 import "./days-style.css"
 
 // 
-export default function SeptDay() {
+export default function CinqDays() {
 	const [weather, setweather] = useState([])
 	const [width, setWidth] = useState()
 	let data = []
@@ -30,16 +30,7 @@ export default function SeptDay() {
 		} else {
 			setWidth(1)
 		}
-		setweather(data)
-	}, [dispatch, isError, message, fiveDay])
 
-
-	if (isLoading || !fiveDay) {
-		return <div>LOADING.....</div>
-	}
-
-	if(fiveDay && fiveDay.list.length > 0) {
-		
 		for (var i = 0; i < 5; i++) {
 			// Get Today 05/05/2022
 			const nowDay = `${getDay[0]}-${getDay[1]}-${Number(getDay[2]) + i}`
@@ -49,9 +40,15 @@ export default function SeptDay() {
 				return item["dt_txt"].slice(0, 10) === nowDay;
 			});
 			data.push(filterDays)
-			
 		}
-		
+		setweather(data)
+
+
+	}, [dispatch, isError, message, fiveDay, getDay])
+
+
+	if (isLoading || !fiveDay) {
+		return <div>LOADING.....</div>
 	}
 
 	function getMin(day) {

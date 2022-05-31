@@ -1,10 +1,9 @@
-import Atom__Moon from "../Atom/Atom__Moon";
-
+import AtomMoon from "../Atom/AtomMoon";
 
 export default function Night() {
 	return (
 		<div className="icon">
-			<Atom__Moon />
+			<AtomMoon />
 		</div>
 	)
 }

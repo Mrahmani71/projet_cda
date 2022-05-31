@@ -1,5 +1,5 @@
 
-// // Modules
+// Modules
 import { useEffect } from "react"
 import cb from "classnames"
 import { ToastContainer } from 'react-toastify';
@@ -9,19 +9,18 @@ import 'react-toastify/dist/ReactToastify.css';
 import Search from "../../components/search/Search"
 import AnimationMeteo from "../../components/meteo-animation/AnimationMeteo"
 import LonLat from "../../components/lon-lat/LonLat"
-import SeptDay from "../../components/days/Days"
+import CinqDays from "../../components/days/Days"
 import Wind from "../../components/wind/Wind"
-import ToggleTheme from "../../components/toggle-theme/ToggleTheme"
 import ErrorNotif from "../../components/notifications/ErrorNotif"
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import { getWeatherLocation, getWeatherToday } from "../../featurs/today/todaySlice";
+import { getWeatherToday } from "../../featurs/today/todaySlice";
 
 
 // Styles
 import "../../assets/styles/main.css"
-import { getFiveDays, getFiveLocation } from "../../featurs/fiveDay/fiveDaySlice";
+import { getFiveDays } from "../../featurs/fiveDay/fiveDaySlice";
 
 export default function HomePage() {
   const ville = localStorage.getItem("city")
@@ -110,7 +109,7 @@ export default function HomePage() {
         <Wind weather={today} />
       </div>
       <h3 className="h3">Les Jours Suivants</h3>
-      <SeptDay />
+      <CinqDays />
     </main>
   )
 } 
