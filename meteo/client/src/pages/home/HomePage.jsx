@@ -28,6 +28,7 @@ export default function HomePage() {
   const { today, isLoading, isError, message } = useSelector(
     (state) => state.today
   )
+  const {fiveDay} = useSelector((state) => state.fiveDay)
 
   // function getLongAndLat() {
   //   return new Promise((resolve, reject) =>
@@ -90,10 +91,9 @@ export default function HomePage() {
     }
   }
 
-  if (isLoading || !today || !today.main) {
+  if (isLoading || !today || !today.main || !fiveDay.list || fiveDay["list"].length === 0 ) {
     return <div>HELLO</div>
   }
-
   // https://openweathermap.org/current
   return (
     <main className={cb("main", "container")}>

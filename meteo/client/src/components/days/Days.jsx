@@ -1,55 +1,52 @@
 
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-
+import { useSelector } from 'react-redux'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
+import moment from "moment"
 import AnimationMeteo from '../meteo-animation/AnimationMeteo'
 import "./days-style.css"
 
-// 
+// Main function
 export default function CinqDays() {
 	const [weather, setweather] = useState([])
 	const [width, setWidth] = useState()
-	let data = []
 	const { fiveDay, isLoading, isError, message } = useSelector((state) => state.fiveDay)
-	const dispatch = useDispatch()
-	const getDay = new Date().toLocaleDateString('fr-FR').split('/').reverse()
 
 
 	useEffect(() => {
 		if (isError) {
 			console.log(message);
 		}
+
 		if (window.innerWidth < 768) {
 			setWidth(0)
 		} else {
 			setWidth(1)
 		}
 
+
+		let data = []
 		for (var i = 0; i < 5; i++) {
 			// Get Today 05/05/2022
-			const nowDay = `${getDay[0]}-${getDay[1]}-${Number(getDay[2]) + i}`
+			const day = moment().add(i, 'days').format('YYYY-MM-DD');
 			// filter API DATA BY NOW DAY
-			// const filterDays = fiveDay['list'].filter(item => item["dt_txt"].slice(0,10) === nowDay)
-			const filterDays = fiveDay['list'].filter(function (item) {
-				return item["dt_txt"].slice(0, 10) === nowDay;
+			const filterDays = fiveDay.list.filter(item => {
+				return item.dt_txt.slice(0, 10) === day;
 			});
 			data.push(filterDays)
 		}
 		setweather(data)
 
-
-	}, [dispatch, isError, message, fiveDay, getDay])
-
+	}, [isError, message,fiveDay])
 
 	if (isLoading || !fiveDay) {
 		return <div>LOADING.....</div>
 	}
+
 
 	function getMin(day) {
 		let data = []

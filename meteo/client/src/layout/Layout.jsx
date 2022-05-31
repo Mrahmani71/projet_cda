@@ -5,9 +5,9 @@ import styles from "./layout.module.css"
 export default function Layout({children}) {
   return (
     <>
-    <header className={styles.header}>
+    {/* <header className={styles.header}>
       <Navbar/>
-    </header>
+    </header> */}
     <main>
       {children}
     </main>
