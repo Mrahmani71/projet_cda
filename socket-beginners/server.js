@@ -89,6 +89,11 @@ io.on('connection', (socket) => {
     // Send message to ALL
     io.sockets.emit('newmsg', data)
   })
+
+  socket.on('disconnect', () => {
+    clients--
+    io.sockets.emit('broadcast', { count: clients  });
+  })
 })
 
 

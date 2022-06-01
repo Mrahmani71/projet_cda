@@ -67,7 +67,8 @@ socket.on('broadcast',(data) =>{
   console.log('data', data);
   if (user) {
     const count = document.getElementById('count')
-    count.value = data.count
+    console.log(count);
+    count.textContent = data.count
   }
 });
 
