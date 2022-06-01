@@ -11,6 +11,7 @@ const config = {
   database: process.env.DB_DATABASE,
 }
 
+
 const pool = mysql.createPool(config)
 
 pool.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
