@@ -1,5 +1,5 @@
 import cb from 'classnames'
-import style from './layout.module.scss'
+import style from './layout.module.css'
 
 export default function Layout({ children }) {
   return (
