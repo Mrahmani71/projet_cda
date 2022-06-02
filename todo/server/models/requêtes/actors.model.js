@@ -8,21 +8,14 @@ export async function getActors() {
 }
 
 // Get a actor
-export async function getActors(user_id) {
-  return await query(` 
-  SELECT * from actors
-  where id = ${user_id}
-  `)
+export async function getActor(key, value) {
+  return await query(`SELECT * from actors where ${key} = "${value}"`)
 }
 
 // Create an actor
 export async function createActor(email, password) {
 
-  return await query(`
-    INSERT into actors SET
-      email          = ${email},
-      password    = ${password}
-  `)
+  return await query(`INSERT into actors SET email = ${email}, password = "${password}"`)
 }
 
 // Edit an actor

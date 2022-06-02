@@ -1,13 +1,22 @@
-import {deleteAllTodos, deleteTodo, getTodos} from "../models/requêtes/todos.model.js"
+import {createTodo, deleteAllTodos, deleteTodo, editTodo, getTodo, getTodos} from "../models/requêtes/todos.model.js"
 
 // @desc   Get todos
 // @route  GET /api/todos/
 // @access private
 export const getTodosController = async (req, res) => {
-  const {user_id} = res.locals.user
+  const {id} = req.user[0]
 
-  const data = await getTodos(user_id)
-  return res.status(200).json(data)
+  const data = await getTodos(id)
+  try {
+    if (data.length > 0) {
+      return res.status(200).json(data)
+    } 
+    if (data.length === 0) {
+      return res.status(200).json({message: "nothing"})
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // @desc   Create todo
@@ -15,8 +24,9 @@ export const getTodosController = async (req, res) => {
 // @access private
 export const createTodoController = async (req, res) => {
   const {title, description} = req.body
+  const {id} = req.user[0];
 
-  const data = await getTodos()
+  const data = await createTodo(title, description, id)
   return res.status(200).json(data)
 }
 
@@ -24,10 +34,20 @@ export const createTodoController = async (req, res) => {
 // @route  PUT /api/todos/:id
 // @access private
 export const updateTodoController = async (req, res) => {
+  const {title, description} = req.body
   const {id} = req.params
+  const id_user = req.user[0].id
 
-  const data = await getTodos()
-  return res.status(200).json(data)
+  const todo = await getTodo(id)
+
+  if(todo[0].membre_id === id_user) {
+    const edit = await editTodo(title, description, id)
+    res.status(200).json(edit)
+  } else {
+    res.status(400)
+    throw new Error('You have not droit')
+  }
+
 }
 
 // @desc   Delete a todo
@@ -36,12 +56,20 @@ export const updateTodoController = async (req, res) => {
 export const deleteTodoController = async (req, res) => {
   const {id} = req.params
 
-  const data = await deleteTodo(id)
+  const todo = await getTodo(id)
+  const id_user = req.user[0].id
 
-  if (data.affectedRows > 0) {
-    return res.status(200).json({message : "todo was deleted"})
+  if(todo[0].membre_id === id_user) {
+    const data = await deleteTodo(id)
+
+    if (data.affectedRows > 0) {
+      return res.status(200).json({message : "todo was deleted"})
+    } else {
+      return res.status(400).json({message: "todo not exist"})
+    }
   } else {
-    return res.status(400).json({message: "todo not exist"})
+    res.status(400)
+    throw new Error('You have not droit')
   }
 }
 
@@ -49,8 +77,8 @@ export const deleteTodoController = async (req, res) => {
 // @desc   Delete all todo
 // @route  Delete /api/todos/all
 // @access private
-export const deleteAllTodoController = async (req, res) => {
-  const {user_id} = res.locals.user
+export const deleteAllTodosController = async (req, res) => {
+  const {user_id} = req.user
 
   const data = await deleteAllTodos(user_id)
 
