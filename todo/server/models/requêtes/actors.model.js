@@ -15,7 +15,7 @@ export async function getActor(key, value) {
 // Create an actor
 export async function createActor(email, password) {
 
-  return await query(`INSERT into actors SET email = ${email}, password = "${password}"`)
+  return await query(`INSERT into actors SET email = "${email}", password = "${password}"`)
 }
 
 // Edit an actor

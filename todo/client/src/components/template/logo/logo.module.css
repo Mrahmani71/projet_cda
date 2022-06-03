@@ -1,0 +1,10 @@
+.logo {
+  text-decoration: none;
+  margin-bottom: 1em;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  height: 3em;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}

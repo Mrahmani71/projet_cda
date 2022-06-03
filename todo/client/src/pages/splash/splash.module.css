@@ -1,0 +1,111 @@
+
+.splash {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.img {
+  margin-inline: auto;
+  position: relative;
+}
+
+.img > img {
+  width: 300px;
+}
+
+.titre {
+  font-size: 2.2rem;
+  margin-bottom: .5em;
+  color: var(--text1);
+}
+
+.description {
+  margin-bottom: .8em;
+  color: var(--text2);
+}
+
+.list {
+  margin: 0;
+  padding-inline-start: .5em;
+  margin-bottom: 2em;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  row-gap: .5em;
+}
+
+.link_buttons {
+  display: inline-flex;
+  column-gap: 1em;
+  align-items: center;
+}
+
+.inscrire_button {
+  width: max-content;
+  text-decoration: none;
+  background-color: var(--surface4);
+  color: var(--text2);
+  padding: .5em 1em;
+  transition: .3s;
+  border: 1px solid hsl(var(--brand-hue) 10% 50% / 15%);
+}
+
+.inscrire_button:hover {
+  color: var(--text1);
+  border: 1px solid hsl(var(--brand-hue) 10% 50% / 15%);
+  box-shadow: 0 1rem 0.5rem -0.5rem;
+  box-shadow: 0 2.8px 2.2px
+      hsl(var(--surface-shadow) / calc(var(--shadow-strength) + 0.03)),
+    0 6.7px 5.3px
+      hsl(var(--surface-shadow) / calc(var(--shadow-strength) + 0.01)),
+    0 12.5px 10px
+      hsl(var(--surface-shadow) / calc(var(--shadow-strength) + 0.02)),
+    0 22.3px 17.9px
+      hsl(var(--surface-shadow) / calc(var(--shadow-strength) + 0.02)),
+    0 41.8px 33.4px
+      hsl(var(--surface-shadow) / calc(var(--shadow-strength) + 0.03)),
+    0 100px 80px hsl(var(--surface-shadow) / var(--shadow-strength));
+}
+
+.connexion_button {
+  text-decoration: none;
+  color: hsl(var(--brand-hue) 10% 50% / 85%);
+  transition: .3s;
+}
+
+.connexion_button:hover {
+  color: hsl(var(--brand-hue) 10% 40% / 100%);;
+}
+
+@media (min-width: 768px) {
+  .splash {
+    margin-top: 3em;
+    flex-direction: row;
+  }
+
+  .img {
+    order: 2;
+  }
+
+  .descript {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .img > img {
+    width: 350px;
+  }
+}
+
+@media (min-width: 992px) {
+  .img > img {
+    width: 400px;
+  }
+}
+@media (min-width: 1200px) {
+  .img > img {
+    width: 450px;
+  }
+}

@@ -69,6 +69,7 @@ export const loginActorController = async (req, res) => {
 // @access public
 export const createActorController = async (req, res) => {
   const { email, password, confirmPassword } = req.body
+  console.log("controller", req.body);
 
   // Check if email or password or confirm password existe in req.body
   if (!email, !password, !confirmPassword) {
@@ -102,6 +103,7 @@ export const createActorController = async (req, res) => {
       id: newUser[0].id,
       email: newUser[0].email,
       token: generateToken(newUser[0].id),
+      role : newUser[0].role
     })
   } else {
     res.status(400)

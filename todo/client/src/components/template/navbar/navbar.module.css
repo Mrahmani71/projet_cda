@@ -1,0 +1,14 @@
+.navbar {
+  margin-bottom: 1em;
+  height: 3em;
+  display: flex;
+  align-items: center;
+  
+}
+
+.logo {
+  font-size: 1.2em;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 600;
+}
