@@ -18,6 +18,7 @@
   padding-bottom: .5em;
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
 }
 .todo_item:not(:last-child) { 
   border-bottom: 1px solid var(--brand);
