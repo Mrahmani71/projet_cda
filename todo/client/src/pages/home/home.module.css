@@ -22,3 +22,7 @@
 .todo_item:not(:last-child) { 
   border-bottom: 1px solid var(--brand);
 }
+
+.todo_item:hover {
+  color: var(--text2);
+}
