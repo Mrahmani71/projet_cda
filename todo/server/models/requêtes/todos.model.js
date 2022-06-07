@@ -4,6 +4,10 @@ import query from "../config.js";
 export async function getTodo(id) {
   return await query(`SELECT * from todos where id = ${id}`)
 }
+// Get last todo
+export async function getLastTodo() {
+  return await query(`SELECT * from todos ORDER BY id DESC LIMIT 1`)
+}
 
 // Get All todos
 export async function getTodos(user_id) {
@@ -11,8 +15,13 @@ export async function getTodos(user_id) {
 }
 
 // Create todo
-export async function createTodo(title, description, user_id) {
-  return await query(`INSERT into todos SET title = "${title}", description = "${description}", membre_id = ${user_id}`)
+export async function createTodo(title, description, user_id, sd) {
+  return await query(`INSERT into todos SET title = ${sd}${title}${sd}, description = ${sd}${description}${sd}, membre_id = ${user_id}`)
+}
+
+// Do a todo
+export async function doTodo(getDo ,id) {
+  return await query(`UPDATE todos SET todos.do = ${getDo} WHERE todos.id = ${id};`)
 }
 
 // Edit a todo

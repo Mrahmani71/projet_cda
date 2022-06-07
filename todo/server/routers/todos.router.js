@@ -3,6 +3,7 @@ import {
   createTodoController, 
   deleteAllTodosController, 
   deleteTodoController, 
+  doTodoController, 
   getTodosController, 
   updateTodoController } from "../controllers/todos.controller.js";
   
@@ -16,8 +17,12 @@ todosRouter.route('/').get(isLogged, getTodosController)
 // Create a todo
 todosRouter.route('/').post(isLogged, createTodoController)
 
+// Do Todo
+todosRouter.route('/do/:id').post(isLogged, doTodoController)
+
 // Edit Todo
 todosRouter.route('/:id').put(isLogged, updateTodoController)
+
 
 // Delete a todo a user
 todosRouter.route('/:id').delete(isLogged, deleteTodoController)

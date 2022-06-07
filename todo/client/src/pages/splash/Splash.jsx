@@ -9,7 +9,7 @@ export default function Splash() {
     <Layout splash>
       <section className={cb(styles.splash, "container")}>
         <div className={cb(styles.img)}>
-          <img src={splash} alt="" srcset="" />
+          <img src={splash} alt="" srcSet="" />
         </div>
         <div className={cb(styles.descript)}>
           <h1 className={cb(styles.titre)}>TODO App</h1>

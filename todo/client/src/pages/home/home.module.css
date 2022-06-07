@@ -27,3 +27,16 @@
 .todo_item:hover {
   color: var(--text2);
 }
+.didit {
+  color: green;
+  text-decoration: line-through;
+}
+
+.ajouter {
+  cursor: pointer;
+  transition: .3s;
+}
+
+.ajouter:hover {
+  color: var(--text2);
+}

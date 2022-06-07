@@ -15,3 +15,17 @@
 .title_form {
   margin-bottom: 1em;
 }
+
+.closeBtn {
+  width: 1.4em;
+  height: 1.4em;
+  position: absolute;
+  top: 7%;
+  right: 5%;
+  color: var(--text1);
+  transition: .3s;
+  cursor: pointer;
+}
+.closeBtn:hover {
+  color: var(--text2);
+}

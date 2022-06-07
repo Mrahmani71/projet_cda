@@ -7,7 +7,7 @@ export default function InputAtom({ type, name, placeHolder, value, onChange, la
   return (
     <div className={cb(styles.InputAtom)}>
       <label htmlFor={name} className={styles.label}>{label}</label>
-      <input id={name} className={cb(styles.input)} type={type} name={name} placeholder={placeHolder} value={value} onChange={onChange} autoComplete={name} />
+      <input id={name} className={cb(styles.input)} type={type} name={name} placeholder={placeHolder} value={value} pattern="[a-zA-Z0-9_éèç]*" onChange={onChange} autoComplete={name} />
     </div>
   )
 }
