@@ -1,8 +1,7 @@
 import mysqldump from "mysqldump"
 import dotenv from "dotenv"
 dotenv.config()
-var d = new Date();
-const fulldate = `${Number(d.getFullYear())}-${Number(d.getUTCMonth()) + 1}-${Number(d.getUTCDate())}-${Number(d.getHours())}`
+var d = new Date().toLocaleString("fr-FR").slice(0, 14).replace(", ", "-").replaceAll("/", "-");
 
 mysqldump({
   connection: {
@@ -11,7 +10,7 @@ mysqldump({
     password: process.env.DB_PASS,
     database: process.env.DB_DATABASE,
   },
-  dumpToFile: `./server/models/backups/${fulldate}.dump.sql`,
+  dumpToFile: `./server/models/backups/${d}.dump.sql`,
 });
 
-// module.exports = mysqldump;
+export default mysqldump
