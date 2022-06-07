@@ -29,13 +29,9 @@ export const createTodoController = async (req, res) => {
     throw new Error('Title is required')
   }
   const { id } = req.user[0];
-  let sd 
-  if (title.indexOf("'") > -1 || description.indexOf("'") > -1) {
-    sd = '"'
-  } else {
-    sd = "'"
-  }
-  await createTodo(title, description, id, sd)
+  const Title = await title.replace("'", "\\'").replace('"', '\\"')
+  const Description = await title.replace("'", "\\'").replace('"', '\\"')
+  await createTodo(Title, Description, id)
   const data = await getLastTodo()
   return res.status(200).json(data[0])
 }

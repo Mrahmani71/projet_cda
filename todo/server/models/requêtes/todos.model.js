@@ -15,8 +15,9 @@ export async function getTodos(user_id) {
 }
 
 // Create todo
-export async function createTodo(title, description, user_id, sd) {
-  return await query(`INSERT into todos SET title = ${sd}${title}${sd}, description = ${sd}${description}${sd}, membre_id = ${user_id}`)
+export async function createTodo(title, description, user_id) {
+  return await query(`INSERT into todos SET title = "${title}", description = "${description}", membre_id = ${user_id}`)
+  // return await query(`INSERT into todos (todos.title, todos.description, todos.membre_id) values ("${title}", "${description}", ${user_id})`)
 }
 
 // Do a todo
