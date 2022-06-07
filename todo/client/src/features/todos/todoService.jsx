@@ -3,7 +3,6 @@ const API_URL = "/api/todos"
 
 // ----- Get all todos
 const getTodos = async(token) => {
-  console.log(token);
   const config = {
     headers: { 'content-type': 'multipart/form-data', 'Authorization': `Bearer ${token}` }
   }

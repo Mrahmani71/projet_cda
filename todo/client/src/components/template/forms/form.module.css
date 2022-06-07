@@ -1,0 +1,17 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: .5em;
+  align-items: flex-start;
+}
+
+.button {
+  margin-top: 1em;
+  padding: .5em 1em;
+  width: max-content;
+  cursor: pointer;
+}
+
+.title_form {
+  margin-bottom: 1em;
+}

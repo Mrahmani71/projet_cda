@@ -1,0 +1,38 @@
+.InputAtom {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  row-gap: .2em;
+  align-items: flex-start;
+}
+
+.label {
+  text-transform: capitalize;
+  color: var(--text1);
+}
+
+.input {
+  height: 2.5em;
+  text-indent: .2em;
+  color: var(--text2);
+}
+
+.input::placeholder {
+  text-transform: capitalize;
+}
+
+::-webkit-input-placeholder {
+  text-transform: initial;
+}
+
+:-moz-placeholder { 
+  text-transform: initial;
+}
+
+::-moz-placeholder {  
+  text-transform: initial;
+}
+
+:-ms-input-placeholder { 
+  text-transform: initial;
+}
