@@ -1,31 +1,33 @@
 import bcryptjs from "bcryptjs"
+import asyncHandler from "express-async-handler"
 import generateToken from "../helpers/generateToken.js"
 import { createActor, getActor } from "../models/requêtes/actors.model.js"
 import { ValidateEmail } from "../helpers/regex.js"
+import AppError from "../helpers/appError.js"
 
 
 // @desc   Get user
 // @route  GET /api/actors/me
 // @access private
-export const getActorController = async (req, res) => {
+export const getActorController = asyncHandler(async (req, res) => {
   const { id } = req.user[0]
   console.log(req.user);
   const data = await getActor("id",id)
   return res.status(200).json(data)
-}
+})
 
 // @desc   Get all Actors
 // @route  GET /api/actors/
 // @access private
-export const getAllActorController = async (req, res) => {
+export const getAllActorController = asyncHandler(async (req, res) => {
   const data = await getAllTodos()
   return res.status(200).json(data)
-}
+})
 
 // @desc   Login Actor
 // @route  POST /api/actors/login
 // @access public
-export const loginActorController = async (req, res) => {
+export const loginActorController = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body
 
   if (ValidateEmail.test(email) != true) {
@@ -36,7 +38,7 @@ export const loginActorController = async (req, res) => {
   // Check if email or password existe in req.body
   if (!email, !password) {
     res.status(404)
-    throw new Error("Email or Password not existe")
+    throw new Error('Email or Password not existe')
   }
 
   // requte SQL For check email in db
@@ -66,12 +68,12 @@ export const loginActorController = async (req, res) => {
     res.status(400)
     throw new Error('Invalid Error')
   }
-}
+})
 
 // @desc   Create Actor
 // @route  POST /api/actors/
 // @access public
-export const createActorController = async (req, res) => {
+export const createActorController = asyncHandler(async (req, res) => {
   const { email, password, confirmPassword } = req.body
   
 
@@ -118,20 +120,20 @@ export const createActorController = async (req, res) => {
     res.status(400)
     throw new Error('Invalid Error')
   }
-}
+})
 
 // @desc   Edit Actor
 // @route  PUT /api/actors/:id
 // @access private
-export const repondActorController = async (req, res) => {
+export const repondActorController = asyncHandler(async (req, res) => {
   const data = await getAllTodos()
   return res.status(200).json(data)
-}
+})
 
 // @desc   delete Actor
 // @route  Delete /api/actors/:id
 // @access private
-export const deleteTodoController = async (req, res) => {
+export const deleteTodoController = asyncHandler(async (req, res) => {
   const data = await getAllTodos()
   return res.status(200).json(data)
-}
+})

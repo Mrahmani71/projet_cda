@@ -6,6 +6,7 @@ import dotenv from "dotenv"
 import todosRouter from "./routers/todos.router.js"
 import actorsRouter from "./routers/actors.router.js"
 import {errorHandler} from "./middlewares/errorHandler.js"
+import AppError from "./helpers/appError.js"
 
 const app = express()
 
@@ -23,14 +24,14 @@ app.use('/api/actors', actorsRouter)
 // // app.use('/api/messages', )
 app.use('/api/todos', todosRouter)
 
-app.post("/api/actors/login", (req, res) => {
-  if(!req.body.text) {
-    res.status(400)
-    throw new Error('Email not existe')
-  }
+
+app.all("*", (req, res) => {
+  res.status(404)
+  throw new Error(`Requested URL ${req.path} not found!`)
 })
 
 app.use(errorHandler)
+
 
 app.listen(PORT, () => {
   console.log(`App work on link http://localhost:${PORT}`)
