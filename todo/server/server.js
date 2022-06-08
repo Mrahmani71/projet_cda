@@ -6,7 +6,6 @@ import dotenv from "dotenv"
 import todosRouter from "./routers/todos.router.js"
 import actorsRouter from "./routers/actors.router.js"
 import {errorHandler} from "./middlewares/errorHandler.js"
-import AppError from "./helpers/appError.js"
 
 const app = express()
 

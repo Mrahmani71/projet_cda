@@ -30,7 +30,7 @@ export default function LoginForm() {
 
   return (
     <>
-      <h1 className={cb(styles.title_form)}>Register Form</h1>
+      <h1 className={cb(styles.title_form)}>Login Form</h1>
       <form className={cb(styles.form)} onSubmit={handleSubmit}>
       <InputAtom
           placeHolder='Your Email'
