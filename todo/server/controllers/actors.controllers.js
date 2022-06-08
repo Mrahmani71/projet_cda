@@ -1,7 +1,7 @@
 import bcryptjs from "bcryptjs"
 import generateToken from "../helpers/generateToken.js"
 import { createActor, getActor } from "../models/requêtes/actors.model.js"
-import asynchandler from "express-async-handler"
+import { ValidateEmail } from "../helpers/regex.js"
 
 
 // @desc   Get user
@@ -28,18 +28,22 @@ export const getAllActorController = async (req, res) => {
 export const loginActorController = async (req, res) => {
   const { email, password } = req.body
 
+  if (ValidateEmail.test(email) != true) {
+    res.status(400)
+    throw new Error('Email is not valide.')
+  }
+
   // Check if email or password existe in req.body
   if (!email, !password) {
     res.status(404)
-    throw new Error('Email or Password not existe')
+    throw new Error("Email or Password not existe")
   }
 
   // requte SQL For check email in db
   const user = await getActor("email", email)
 
-
   // Check email
-  if (!user) {
+  if (!user[0]) {
     res.status(400)
     throw new Error('User not existe')
   }
@@ -47,7 +51,7 @@ export const loginActorController = async (req, res) => {
   // Check Password
   if (!(await bcryptjs.compare(password, user[0].password))) {
     res.status(400)
-    throw new Error('password not correct')
+    throw new Error('password is not not correct')
   }
 
   // finish
@@ -69,7 +73,12 @@ export const loginActorController = async (req, res) => {
 // @access public
 export const createActorController = async (req, res) => {
   const { email, password, confirmPassword } = req.body
-  console.log("controller", req.body);
+  
+
+  if (ValidateEmail.test(email) != true) {
+    res.status(400)
+    throw new Error('Email is not valide.')
+  }
 
   // Check if email or password or confirm password existe in req.body
   if (!email, !password, !confirmPassword) {

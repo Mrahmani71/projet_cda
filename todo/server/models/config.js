@@ -10,14 +10,7 @@ const config = {
   port: process.env.DB_PORT,
   database: process.env.DB_DATABASE,
 }
-
-
-const pool = mysql.createPool(config)
-
-pool.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-  if (error) throw error;
-  console.log("db connected");
-});
+const pool = mysql.createConnection(config)
 
 const query = promisify(pool.query).bind(pool)
 

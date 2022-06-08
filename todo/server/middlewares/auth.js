@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken"
-import asynchandler from "express-async-handler"
 import { getActor } from "../models/requêtes/actors.model.js"
 
 const isLogged = async (req ,res , next) => {

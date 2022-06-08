@@ -23,7 +23,6 @@ todosRouter.route('/do/:id').post(isLogged, doTodoController)
 // Edit Todo
 todosRouter.route('/:id').put(isLogged, updateTodoController)
 
-
 // Delete a todo a user
 todosRouter.route('/:id').delete(isLogged, deleteTodoController)
 

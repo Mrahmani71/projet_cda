@@ -1,3 +1,4 @@
+import { checkChar } from "../helpers/regex.js"
 import { createTodo, deleteAllTodos, deleteTodo, doTodo, editTodo, getLastTodo, getTodo, getTodos } from "../models/requêtes/todos.model.js"
 
 // @desc   Get todos
@@ -29,8 +30,8 @@ export const createTodoController = async (req, res) => {
     throw new Error('Title is required')
   }
   const { id } = req.user[0];
-  const Title = await title.replace("'", "\\'").replace('"', '\\"')
-  const Description = await title.replace("'", "\\'").replace('"', '\\"')
+  const Title = await checkChar(title)
+  const Description = await checkChar(description)
   await createTodo(Title, Description, id)
   const data = await getLastTodo()
   return res.status(200).json(data[0])
@@ -72,8 +73,11 @@ export const updateTodoController = async (req, res) => {
   const todo = await getTodo(id)
 
   if (todo[0].membre_id === id_user) {
-    const edit = await editTodo(title, description, id)
-    res.status(200).json(edit)
+    const Title = await checkChar(title)
+    const Description = await checkChar(description)
+    await editTodo(Title, Description, id)
+    const edited = await getTodo(id)
+    res.status(200).json(edited)
   } else {
     res.status(400)
     throw new Error('You have not droit')
@@ -93,7 +97,7 @@ export const deleteTodoController = async (req, res) => {
     const data = await deleteTodo(id)
 
     if (data.affectedRows > 0) {
-      return res.status(200).json({ message: "todo was deleted" })
+      return res.status(200).json({ id : id })
     } else {
       return res.status(400).json({ message: "todo not exist" })
     }

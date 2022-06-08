@@ -29,11 +29,31 @@ const doTodo = async(data, token) => {
   return response.data
 }
 
+// ------ delete a todo
+const deleteTodo = async (data, token) => {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` }
+  }
+  const response = await axios.delete(`${API_URL}/${data}`, config)
+  return response.data
+}
+
+// ----- edit a todo
+const editTodo = async(data, token) => {
+  const config = {
+    headers: {Authorization : `Bearer ${token}`}
+  }
+  const response = await axios.put(`${API_URL}/${data.id}`, data, config)
+  return response.data
+}
+
 // Config Todos Service
 const todoService = {
   getTodos,
   createTodo,
-  doTodo
+  doTodo,
+  deleteTodo,
+  editTodo
 }
 
 export default todoService

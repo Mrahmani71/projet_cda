@@ -40,3 +40,21 @@
 .ajouter:hover {
   color: var(--text2);
 }
+
+.icons {
+  margin-top: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  column-gap: 1em;
+}
+
+.todo_icon {
+  width: 1.2em;
+  cursor: pointer;
+  color: var(--text2);
+  transition: .3s;
+}
+.todo_icon:hover {
+  color: var(--text1);
+}

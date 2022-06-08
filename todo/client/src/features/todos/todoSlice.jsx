@@ -59,6 +59,39 @@ async(data, thunkAPI) => {
       error.toString()
     return thunkAPI.rejectWithValue(message)
   }
+})
+
+// Delete a todo
+export const deleteTodo = createAsyncThunk('todo/delete', 
+async(data, thunkAPI) => {
+  try {
+    const token = thunkAPI.getState().actor.user.token
+    return await todoService.deleteTodo(data, token)
+  } catch (error) {
+    const message = (error.response &&
+      error.response.data &&
+      error.response.data.message) ||
+      error.message ||
+      error.toString()
+    return thunkAPI.rejectWithValue(message)
+  }
+})
+
+// Edit a todo
+export const editTodo = createAsyncThunk('todo/edit',
+
+async(data, thunkAPI) => {
+  try {    
+    const token = thunkAPI.getState().actor.user.token
+    return await todoService.editTodo(data, token)
+  } catch (error) {
+    const message = (error.response &&
+      error.response.data &&
+      error.response.data.message) ||
+      error.message ||
+      error.toString()
+    return thunkAPI.rejectWithValue(message)
+  }
 }
 
 )
@@ -129,6 +162,37 @@ export const todoSlice = createSlice({
       }
     })
     .addCase(doTodo.rejected, (state, action)=> {
+      state.isLoading = false
+      state.isError = true
+      state.message = action.payload
+    })
+
+    // Delete a todo
+    .addCase(deleteTodo.pending, (state) => {
+      state.isLoading = true
+    })
+    .addCase(deleteTodo.fulfilled, (state, action) => {
+      state.isLoading = false
+      state.isSuccess = true
+      state.todos     = state.todos.filter(todo => todo.id !== Number(action.payload.id))
+    })
+    .addCase(deleteTodo.rejected, (state, action) => {
+      state.isLoading = false
+      state.isError = true
+      state.message = action.payload
+    })
+
+    // edit a todo
+    .addCase(editTodo.pending, (state) => {
+      state.isLoading = true
+    })
+    .addCase(editTodo.fulfilled, (state, action) => {
+      state.isLoading = false
+      state.isSuccess = true
+      state.todos = state.todos.filter(todo => todo.id !== Number(action.payload[0].id))
+      state.todos.unshift(action.payload[0])
+    })
+    .addCase(editTodo.rejected, (state, action) => {
       state.isLoading = false
       state.isError = true
       state.message = action.payload
