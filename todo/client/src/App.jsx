@@ -5,6 +5,7 @@ import RegisterPage from "./pages/register/Register";
 import LoginPage from "./pages/login/Login";
 import { useSelector } from "react-redux";
 import AdminPage from "./pages/admin/Admin";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 function VisitorRoutes() {
   return (

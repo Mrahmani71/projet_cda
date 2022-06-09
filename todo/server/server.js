@@ -6,6 +6,7 @@ import dotenv from "dotenv"
 import todosRouter from "./routers/todos.router.js"
 import actorsRouter from "./routers/actors.router.js"
 import {errorHandler} from "./middlewares/errorHandler.js"
+import Todos from "./models/objects/Todos.model.js"
 
 const app = express()
 
@@ -29,6 +30,15 @@ app.post("/api/actors/login", (req, res) => {
     throw new Error('Email not existe')
   }
 })
+
+app.get('/class', async (req, res, next) => {
+  try {
+    const todo = await Todos.createTodo(12);
+    return res.status(200).json(todo);
+  } catch (err) {
+    return next(err);
+  }
+  })
 
 app.use(errorHandler)
 

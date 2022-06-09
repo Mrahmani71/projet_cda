@@ -43,6 +43,12 @@ form > div {
   gap: 0.75ch;
 }
 
+.loading {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+}
+
 .container {
   padding-inline: 15px;
 }

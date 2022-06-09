@@ -1,6 +1,7 @@
 import cb from 'classnames'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { TailSpin } from 'react-loader-spinner'
 import ModalComponent from '../../components/modal/Modal'
 import AddTodoForm from '../../components/template/forms/AddTodoForm'
 import EditTodoForm from '../../components/template/forms/EditTodoForm'
@@ -62,7 +63,11 @@ export default function HomePage() {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return (
+      <div className='loading'>
+        <TailSpin color="var(--brand)" height={80} width={80}/>
+      </div>
+    )
   }
   return (
     <Layout>
