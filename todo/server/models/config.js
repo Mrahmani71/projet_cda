@@ -1,6 +1,8 @@
 import mysql from "mysql"
 import {promisify} from "util"
 import dotenv from "dotenv"
+
+console.log("db");
 dotenv.config()
 const config = {
   connectionLimit : 10,

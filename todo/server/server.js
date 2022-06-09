@@ -24,11 +24,10 @@ app.use('/api/actors', actorsRouter)
 // // app.use('/api/messages', )
 app.use('/api/todos', todosRouter)
 
-app.post("/api/actors/login", (req, res) => {
-  if(!req.body.text) {
-    res.status(400)
-    throw new Error('Email not existe')
-  }
+
+app.all("*", (req, res) => {
+  res.status(404)
+  throw new Error(`Requested URL ${req.path} not found!`)
 })
 
 app.get('/class', async (req, res, next) => {
@@ -41,6 +40,7 @@ app.get('/class', async (req, res, next) => {
   })
 
 app.use(errorHandler)
+
 
 app.listen(PORT, () => {
   console.log(`App work on link http://localhost:${PORT}`)
