@@ -4,13 +4,14 @@ import { checkChar } from "../../helpers/regex.js";
 import Todos from "./Todos.model.js";
 
 export default class Actors {
-  constructor({ id, name, email, token, create_date, role, updated }) {
+  constructor({ id, name, email, password, token, create_date, role, updated }) {
     this.id = id;
     this.name = name;
     this.email = email;
     this.token = token;
     this.create_date = create_date;
     this.role = role;
+    this.password = password
     this.updated = updated
   }
 
@@ -61,17 +62,18 @@ export default class Actors {
 
     const Name = await checkChar(name)
     const Email = await checkChar(email)
+    // const getUser = await this.getActor('id', id)
+
+    // if (getUser["id"] === undefined) {
+    //   throw new AppError('user was not found', 404)
+    // }
 
     const result = await query(`UPDATE actors SET actors.name = "${Name}", actors.email = "${Email}", actors.updated = (NOW() + INTERVAL 2 HOUR) WHERE actors.id = ${id}`)
 
     if (!result.affectedRows || result.affectedRows !== 1) {
       throw new AppError('Request is not correct', 400)
     }
-    const getUser = await this.getActor('id', id)
 
-    if (getUser["id"] === undefined) {
-      throw new AppError('user was not found', 404)
-    }
     return new Actors(getUser)
   }
 
