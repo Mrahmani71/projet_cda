@@ -1,0 +1,36 @@
+.container {
+    padding-inline: 15px;
+}
+
+.section-padding {
+    padding-block: 3em;
+}
+
+@media (min-width: 600px) {
+    .container {
+        max-width: 550px;
+        margin-inline: auto;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 970px;
+    }
+
+    .section-padding {
+        padding-block: 4em;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1200px;
+    }
+}
