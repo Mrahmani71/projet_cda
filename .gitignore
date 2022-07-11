@@ -106,3 +106,4 @@ node_modules/
 build/
 *.apk
 *.deb
+mdstock/
